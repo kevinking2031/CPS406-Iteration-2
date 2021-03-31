@@ -9,15 +9,39 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+from TemplateWindow import Ui_TemplateWindow
+import time
 
 
 class Ui_LoginScreen(object):
+        
     def setupUi(self, LoginScreen):
         LoginScreen.setObjectName("LoginScreen")
-        LoginScreen.resize(810, 467)
+        LoginScreen.resize(811, 466)
         LoginScreen.setTabShape(QtWidgets.QTabWidget.Rounded)
         self.centralwidget = QtWidgets.QWidget(LoginScreen)
         self.centralwidget.setObjectName("centralwidget")
+        self.header_label = QtWidgets.QLabel(self.centralwidget)
+        self.header_label.setGeometry(QtCore.QRect(0, 0, 801, 71))
+        font = QtGui.QFont()
+        font.setFamily("Gubbi")
+        font.setPointSize(15)
+        font.setBold(True)
+        font.setWeight(75)
+        self.header_label.setFont(font)
+        self.header_label.setFrameShape(QtWidgets.QFrame.HLine)
+        self.header_label.setFrameShadow(QtWidgets.QFrame.Sunken)
+        self.header_label.setLineWidth(1)
+        self.header_label.setMidLineWidth(0)
+        self.header_label.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignTop)
+        self.header_label.setObjectName("header_label")
+        self.faq_button = QtWidgets.QPushButton(self.centralwidget)
+        self.faq_button.setGeometry(QtCore.QRect(738, 423, 71, 21))
+        font = QtGui.QFont()
+        font.setPointSize(9)
+        self.faq_button.setFont(font)
+        self.faq_button.setFlat(True)
+        self.faq_button.setObjectName("faq_button")
         self.description_label = QtWidgets.QLabel(self.centralwidget)
         self.description_label.setGeometry(QtCore.QRect(70, 70, 681, 101))
         font = QtGui.QFont()
@@ -60,13 +84,15 @@ class Ui_LoginScreen(object):
         self.statusbar.setObjectName("statusbar")
         LoginScreen.setStatusBar(self.statusbar)
 
-        self.retranslateUi(LoginScreen)
+        #self.retranslateUi(LoginScreen)
         #self.login_button.clicked.connect(self.getInfo)
         QtCore.QMetaObject.connectSlotsByName(LoginScreen)
 
-    def retranslateUi(self, LoginScreen):
+    def retranslateUi_english(self, LoginScreen):
         _translate = QtCore.QCoreApplication.translate
         LoginScreen.setWindowTitle(_translate("LoginScreen", "Cypress - login"))
+        self.header_label.setText(_translate("LoginScreen", "CYPRESS                                                                                  City of Toronto"))
+        self.faq_button.setText(_translate("LoginScreen", "FAQ"))
         self.description_label.setText(_translate("LoginScreen", "You are currently at the Cypress Login Page. By logging into this system, you will be able to report a variety of problems as you have witnessed on the streets of Toronto. "))
         self.username_label.setText(_translate("LoginScreen", "Username:"))
         self.password_label.setText(_translate("LoginScreen", "Password:"))
@@ -74,8 +100,20 @@ class Ui_LoginScreen(object):
         self.login_button.setText(_translate("LoginScreen", "Login"))
         self.cancel_button.setText(_translate("LoginScreen", "Cancel"))
 
-    def getInfo(self):
-        return [self.username.text(), self.password.text()]
+    def retranslateUi_french(self, LoginScreen):
+        _translate = QtCore.QCoreApplication.translate
+        LoginScreen.setWindowTitle(_translate("LoginScreen", "Cypress - login"))
+        self.header_label.setText(_translate("LoginScreen", "CYPRESS                                                                                  City of Toronto"))
+        self.faq_button.setText(_translate("LoginScreen", "FAQ"))
+        self.description_label.setText(_translate("LoginScreen", "Vous êtes actuellement sur la page de connexion de Cypress. En vous connectant à ce système, vous serez en mesure de signaler une variété de problèmes comme vous en avez été témoins dans les rues de Toronto. "))
+        self.username_label.setText(_translate("LoginScreen", "Nom d'Utilisateur:"))
+        self.password_label.setText(_translate("LoginScreen", "Mot de Passe:"))
+        self.email_domain_label.setText(_translate("LoginScreen", "@cypress.on.ca"))
+        self.login_button.setText(_translate("LoginScreen", "Connexion"))
+        self.cancel_button.setText(_translate("LoginScreen", "Annuler"))
+
+    # def getInfo(self):
+    #     return [self.username.text(), self.password.text()]
 
 
 if __name__ == "__main__":

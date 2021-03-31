@@ -107,11 +107,11 @@ class Ui_RegisterScreen(object):
         self.statusbar.setObjectName("statusbar")
         RegisterScreen.setStatusBar(self.statusbar)
 
-        self.retranslateUi(RegisterScreen)
-        self.register_button.clicked.connect(self.getInfo)
+        #self.retranslateUi(RegisterScreen)
+        #self.register_button.clicked.connect(self.getInfo)
         QtCore.QMetaObject.connectSlotsByName(RegisterScreen)
 
-    def retranslateUi(self, RegisterScreen):
+    def retranslateUi_english(self, RegisterScreen):
         _translate = QtCore.QCoreApplication.translate
         RegisterScreen.setWindowTitle(_translate("RegisterScreen", "Cypress - Register"))
         self.description_label.setText(_translate("RegisterScreen", "Please enter your information below:"))
@@ -128,8 +128,25 @@ class Ui_RegisterScreen(object):
         self.dash_label2.setText(_translate("RegisterScreen", "-"))
         self.email_domain_label.setText(_translate("RegisterScreen", "@cypress.on.ca"))
 
-    def getInfo(self):
-        print([self.first_name.text(), self.last_name.text(), self.address.text(), self.phone_1.text()+self.phone_2.text()+self.phone_3.text(), self.username.text(), self.password.text()])
+    def retranslateUi_french(self, RegisterScreen):
+        _translate = QtCore.QCoreApplication.translate
+        RegisterScreen.setWindowTitle(_translate("RegisterScreen", "Cypress - Register"))
+        self.description_label.setText(_translate("RegisterScreen", "S'il vous plaît entrer vos informations ci-dessous:"))
+        self.fn_label.setText(_translate("RegisterScreen", "Prénom:"))
+        self.ln_label.setText(_translate("RegisterScreen", "Nom de Famille:"))
+        self.address_label.setText(_translate("RegisterScreen", "Addresse:"))
+        self.phone_label.setText(_translate("RegisterScreen", "Numéro de Téléphone:"))
+        self.email_label.setText(_translate("RegisterScreen", "Addresse E-mail:"))
+        self.username_label.setText(_translate("RegisterScreen", "Nom d'Utilisateur:"))
+        self.password_label.setText(_translate("RegisterScreen", "Mot de Passe:"))
+        self.register_button.setText(_translate("RegisterScreen", "S'inscrire"))
+        self.cancel_button.setText(_translate("RegisterScreen", "Annuler"))
+        self.dash_label1.setText(_translate("RegisterScreen", "-"))
+        self.dash_label2.setText(_translate("RegisterScreen", "-"))
+        self.email_domain_label.setText(_translate("RegisterScreen", "@cypress.on.ca"))
+
+    # def getInfo(self):
+    #     print([self.first_name.text(), self.last_name.text(), self.address.text(), self.phone_1.text()+self.phone_2.text()+self.phone_3.text(), self.username.text(), self.password.text()])
 
 
 if __name__ == "__main__":
