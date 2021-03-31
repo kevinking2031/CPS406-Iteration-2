@@ -103,7 +103,7 @@ class Ui_LoginScreen(object):
     def retranslateUi_french(self, LoginScreen):
         _translate = QtCore.QCoreApplication.translate
         LoginScreen.setWindowTitle(_translate("LoginScreen", "Cypress - login"))
-        self.header_label.setText(_translate("LoginScreen", "CYPRESS                                                                                  City of Toronto"))
+        self.header_label.setText(_translate("LoginScreen", "CYPRESS                                                                                  Ville de Toronto"))
         self.faq_button.setText(_translate("LoginScreen", "FAQ"))
         self.description_label.setText(_translate("LoginScreen", "Vous êtes actuellement sur la page de connexion de Cypress. En vous connectant à ce système, vous serez en mesure de signaler une variété de problèmes comme vous en avez été témoins dans les rues de Toronto. "))
         self.username_label.setText(_translate("LoginScreen", "Nom d'Utilisateur:"))
