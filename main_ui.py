@@ -10,7 +10,6 @@ from RegisterScreen import Ui_RegisterScreen
 from ReportScreen import Ui_ReportScreen
 
 global language
-#language='french'
 
 class MyFrontScreen(QMainWindow):
 	def __init__(self):
