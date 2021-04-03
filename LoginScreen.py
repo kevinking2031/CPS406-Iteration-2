@@ -9,9 +9,7 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-from TemplateWindow import Ui_TemplateWindow
-import time
-
+from SQ_Dialog import Ui_SQ_Dialog
 
 class Ui_LoginScreen(object):
         
@@ -70,11 +68,19 @@ class Ui_LoginScreen(object):
         self.email_domain_label.setGeometry(QtCore.QRect(510, 190, 121, 21))
         self.email_domain_label.setObjectName("email_domain_label")
         self.login_button = QtWidgets.QPushButton(self.centralwidget)
-        self.login_button.setGeometry(QtCore.QRect(140, 310, 89, 25))
+        self.login_button.setGeometry(QtCore.QRect(140, 330, 89, 25))
         self.login_button.setObjectName("login_button")
         self.cancel_button = QtWidgets.QPushButton(self.centralwidget)
-        self.cancel_button.setGeometry(QtCore.QRect(450, 310, 89, 25))
+        self.cancel_button.setGeometry(QtCore.QRect(450, 330, 89, 25))
         self.cancel_button.setObjectName("cancel_button")
+        self.forgot_button = QtWidgets.QPushButton(self.centralwidget)
+        self.forgot_button.setGeometry(QtCore.QRect(400, 270, 150, 40))
+        font = QtGui.QFont()
+        font.setPointSize(10)
+        self.forgot_button.setFont(font)
+        self.forgot_button.setFlat(True)
+        self.forgot_button.setStyleSheet("color:rgb(204, 0, 0)")
+        self.forgot_button.setObjectName("forgot_button")
         LoginScreen.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(LoginScreen)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 810, 22))
@@ -84,8 +90,8 @@ class Ui_LoginScreen(object):
         self.statusbar.setObjectName("statusbar")
         LoginScreen.setStatusBar(self.statusbar)
 
-        #self.retranslateUi(LoginScreen)
-        #self.login_button.clicked.connect(self.getInfo)
+        self.retranslateUi_english(LoginScreen)
+        #self.login_button.clicked.connect(self.do)
         QtCore.QMetaObject.connectSlotsByName(LoginScreen)
 
     def retranslateUi_english(self, LoginScreen):
@@ -97,13 +103,14 @@ class Ui_LoginScreen(object):
         self.username_label.setText(_translate("LoginScreen", "Username:"))
         self.password_label.setText(_translate("LoginScreen", "Password:"))
         self.email_domain_label.setText(_translate("LoginScreen", "@cypress.on.ca"))
+        self.forgot_button.setText(_translate("LoginScreen", "FORGOT PASSWORD?"))
         self.login_button.setText(_translate("LoginScreen", "Login"))
         self.cancel_button.setText(_translate("LoginScreen", "Cancel"))
 
     def retranslateUi_french(self, LoginScreen):
         _translate = QtCore.QCoreApplication.translate
         LoginScreen.setWindowTitle(_translate("LoginScreen", "Cypress - login"))
-        self.header_label.setText(_translate("LoginScreen", "CYPRESS                                                                                  Ville de Toronto"))
+        self.header_label.setText(_translate("LoginScreen", "CYPRESS                                                                                  City of Toronto"))
         self.faq_button.setText(_translate("LoginScreen", "FAQ"))
         self.description_label.setText(_translate("LoginScreen", "Vous êtes actuellement sur la page de connexion de Cypress. En vous connectant à ce système, vous serez en mesure de signaler une variété de problèmes comme vous en avez été témoins dans les rues de Toronto. "))
         self.username_label.setText(_translate("LoginScreen", "Nom d'Utilisateur:"))
@@ -112,8 +119,29 @@ class Ui_LoginScreen(object):
         self.login_button.setText(_translate("LoginScreen", "Connexion"))
         self.cancel_button.setText(_translate("LoginScreen", "Annuler"))
 
-    # def getInfo(self):
-    #     return [self.username.text(), self.password.text()]
+
+    #def do(self):
+        #self.pap=MyDialog()
+        #self.pap.retranslateUi_english(self.pap.ui)
+        #self.pap.show()
+
+class MyDialog(QtWidgets.QDialog):
+        def __init__(self):
+            super().__init__()
+            self.ui = Ui_SQ_Dialog()
+            self.ui.setupUi(self)
+            self.retranslateUi_english(self.ui)
+            self.ui.description_label.setStyleSheet("color:rgb(32, 74, 135)")
+
+        def retranslateUi_english(self, ui):
+            ui.retranslateUi_english(self)
+            _translate = QtCore.QCoreApplication.translate
+            ui.description_label.setText(_translate("RegisterSQ_Dialog", "Enter your security question and answer below. After verification, your password will be sent to your account."))
+
+        def retranslateUi_french(self, ui):
+            ui.retranslateUi_english(self)
+            _translate = QtCore.QCoreApplication.translate
+            ui.description_label.setText(_translate("Entrez votre question de sécurité et votre réponse ci-dessous. Après vérification, votre mot de passe sera envoyé à votre compte."))
 
 
 if __name__ == "__main__":
