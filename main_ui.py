@@ -3,11 +3,11 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtGui     import *
 from PyQt5.QtCore    import *
 
-from FrontScreen import Ui_FrontScreen
-from MainScreen import Ui_MainScreen
-from LoginScreen import Ui_LoginScreen
-from RegisterScreen import Ui_RegisterScreen
-from ReportScreen import Ui_ReportScreen
+import FrontScreen #import Ui_FrontScreen
+import MainScreen #import Ui_MainScreen
+import LoginScreen #import Ui_LoginScreen
+import RegisterScreen #import *
+import ReportScreen #import Ui_ReportScreen
 
 global language
 
@@ -15,7 +15,7 @@ class MyFrontScreen(QMainWindow):
 	def __init__(self):
 		global language
 		super().__init__()
-		self.ui=Ui_FrontScreen()
+		self.ui=FrontScreen.Ui_FrontScreen()
 		self.ui.setupUi(self)
 		language='english'
 		self.ui.english_button.clicked.connect(self.eng_clicked)
@@ -23,7 +23,7 @@ class MyFrontScreen(QMainWindow):
 
 	def eng_clicked(self):
 		self.hide()
-		self.next=MyMainScreen()
+		self.next=MyLoginScreen()
 		self.next.show()
 	
 	def fre_clicked(self):
@@ -35,7 +35,7 @@ class MyMainScreen(QMainWindow):
 	def __init__(self):
 		super().__init__()
 		global language
-		self.ui=Ui_MainScreen()
+		self.ui=MainScreen.Ui_MainScreen()
 		self.ui.setupUi(self)
 		if language=='french':   self.ui.retranslateUi_french(self)
 		else:   self.ui.retranslateUi_english(self)
@@ -66,14 +66,16 @@ class MyLoginScreen(QMainWindow):
 	def __init__(self):
 		super().__init__()
 		global language
-		self.ui=Ui_LoginScreen()
+		self.ui=LoginScreen.Ui_LoginScreen()
 		self.ui.setupUi(self)
 		if language=='french':   self.ui.retranslateUi_french(self)
 		else:   self.ui.retranslateUi_english(self)
 		self.ui.login_button.clicked.connect(self.login_clicked)
-		self.ui.cancel_button.clicked.connect(self.cancel_clicked)  
+		self.ui.cancel_button.clicked.connect(self.cancel_clicked)
+		self.ui.forgot_button.clicked.connect(self.forgot_clicked)  
 
 	def cancel_clicked(self):
+		#if username is not empty =======
 		self.hide()
 		self.next=MyMainScreen(); self.next.show()
 
@@ -81,13 +83,25 @@ class MyLoginScreen(QMainWindow):
 		## Validate here 
 		## get username and password as strings with - self.username.text() and self.password.text()
 		
-		self.cancel_clicked()
+		#if not valid :
+		self.notify=LoginScreen.MyNotify(language)
+		self.notify.show()
+		#else:
+		#self.cancel_clicked()
+
+	def forgot_clicked(self):
+		self.SQ=LoginScreen.MyDialog(language)
+		#get info with : self.SQ.ui.security_answer.text() and self.SQ.ui.security_question.text()
+		self.hide()		
+		self.SQ.exec_()
+		print(self.SQ.ui.security_question.text())
+		self.next=MyFrontScreen(); self.next.show()
 
 class MyRegisterScreen(QMainWindow):
 	def __init__(self):
 		super().__init__()
 		global language
-		self.ui=Ui_RegisterScreen()
+		self.ui=RegisterScreen.Ui_RegisterScreen()
 		self.ui.setupUi(self)
 		if language=='french':   self.ui.retranslateUi_french(self)
 		else:   self.ui.retranslateUi_english(self)
@@ -104,6 +118,9 @@ class MyRegisterScreen(QMainWindow):
 		# for phone number - self.ui.phone_1.text()+self.ui.phone_2.text()+self.ui.phone_3.text() , 
 		# self.ui.username.text(), self.ui.password.text()]
 
+		self.SQ=RegisterScreen.MyDialog(language)
+		self.hide()
+		self.SQ.exec_()
 
 		self.cancel_clicked()
 
@@ -111,7 +128,7 @@ class MyReportScreen(QMainWindow):
 	def __init__(self):
 		super().__init__()
 		global language
-		self.ui=Ui_ReportScreen()
+		self.ui=ReportScreen.Ui_ReportScreen()
 		self.ui.setupUi(self)
 		if language=='french':   self.ui.retranslateUi_french(self)
 		else:   self.ui.retranslateUi_english(self)
