@@ -9,14 +9,35 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-
+from SQ_Dialog import Ui_SQ_Dialog
 
 class Ui_RegisterScreen(object):
     def setupUi(self, RegisterScreen):
         RegisterScreen.setObjectName("RegisterScreen")
-        RegisterScreen.resize(809, 466)
+        RegisterScreen.resize(811, 466)
         self.centralwidget = QtWidgets.QWidget(RegisterScreen)
         self.centralwidget.setObjectName("centralwidget")
+        self.header_label = QtWidgets.QLabel(self.centralwidget)
+        self.header_label.setGeometry(QtCore.QRect(0, 0, 801, 71))
+        font = QtGui.QFont()
+        font.setFamily("Gubbi")
+        font.setPointSize(15)
+        font.setBold(True)
+        font.setWeight(75)
+        self.header_label.setFont(font)
+        self.header_label.setFrameShape(QtWidgets.QFrame.HLine)
+        self.header_label.setFrameShadow(QtWidgets.QFrame.Sunken)
+        self.header_label.setLineWidth(1)
+        self.header_label.setMidLineWidth(0)
+        self.header_label.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignTop)
+        self.header_label.setObjectName("header_label")
+        self.faq_button = QtWidgets.QPushButton(self.centralwidget)
+        self.faq_button.setGeometry(QtCore.QRect(738, 423, 71, 21))
+        font = QtGui.QFont()
+        font.setPointSize(9)
+        self.faq_button.setFont(font)
+        self.faq_button.setFlat(True)
+        self.faq_button.setObjectName("faq_button")
         self.description_label = QtWidgets.QLabel(self.centralwidget)
         self.description_label.setGeometry(QtCore.QRect(20, 50, 351, 51))
         font = QtGui.QFont()
@@ -107,8 +128,8 @@ class Ui_RegisterScreen(object):
         self.statusbar.setObjectName("statusbar")
         RegisterScreen.setStatusBar(self.statusbar)
 
-        #self.retranslateUi(RegisterScreen)
-        #self.register_button.clicked.connect(self.getInfo)
+        self.retranslateUi_english(RegisterScreen)
+        #self.register_button.clicked.connect(self.do)
         QtCore.QMetaObject.connectSlotsByName(RegisterScreen)
 
     def retranslateUi_english(self, RegisterScreen):
@@ -127,6 +148,7 @@ class Ui_RegisterScreen(object):
         self.dash_label1.setText(_translate("RegisterScreen", "-"))
         self.dash_label2.setText(_translate("RegisterScreen", "-"))
         self.email_domain_label.setText(_translate("RegisterScreen", "@cypress.on.ca"))
+        
 
     def retranslateUi_french(self, RegisterScreen):
         _translate = QtCore.QCoreApplication.translate
@@ -144,9 +166,29 @@ class Ui_RegisterScreen(object):
         self.dash_label1.setText(_translate("RegisterScreen", "-"))
         self.dash_label2.setText(_translate("RegisterScreen", "-"))
         self.email_domain_label.setText(_translate("RegisterScreen", "@cypress.on.ca"))
+   
+    #def do(self):
+        #self.pap=MyDialog()
+        #self.pap.retranslateUi_english(self.pap.ui)
+        #self.pap.show()
 
-    # def getInfo(self):
-    #     print([self.first_name.text(), self.last_name.text(), self.address.text(), self.phone_1.text()+self.phone_2.text()+self.phone_3.text(), self.username.text(), self.password.text()])
+class MyDialog(QtWidgets.QDialog):
+        def __init__(self):
+            super().__init__()
+            self.ui = Ui_SQ_Dialog()
+            self.ui.setupUi(self)
+            self.retranslateUi_english(self.ui)
+            self.ui.description_label.setStyleSheet("color:rgb(115, 210, 22)")
+
+        def retranslateUi_english(self, ui):
+            ui.retranslateUi_english(self)
+            _translate = QtCore.QCoreApplication.translate
+            ui.description_label.setText(_translate("SQ_Dialog", "Your registration is almost complete! Enter a security question and answer to verify your identity should you forget your password"))
+
+        def retranslateUi_french(self, ui):
+            ui.retranslateUi_english(self)
+            _translate = QtCore.QCoreApplication.translate
+            ui.description_label.setText(_translate("Votre inscription est presque terminée! Entrez une question de sécurité et une réponse pour vérifier votre identité si vous oubliez votre mot de passe."))
 
 
 if __name__ == "__main__":
