@@ -10,12 +10,13 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from SQ_Dialog import Ui_SQ_Dialog
+from Notify import Ui_Notify
 
 class Ui_LoginScreen(object):
         
     def setupUi(self, LoginScreen):
         LoginScreen.setObjectName("LoginScreen")
-        LoginScreen.resize(811, 466)
+        LoginScreen.setFixedSize(811, 466)
         LoginScreen.setTabShape(QtWidgets.QTabWidget.Rounded)
         self.centralwidget = QtWidgets.QWidget(LoginScreen)
         self.centralwidget.setObjectName("centralwidget")
@@ -59,11 +60,13 @@ class Ui_LoginScreen(object):
         self.password.setEchoMode(QtWidgets.QLineEdit.Password)
         self.password.setObjectName("password")
         self.username_label = QtWidgets.QLabel(self.centralwidget)
-        self.username_label.setGeometry(QtCore.QRect(150, 190, 81, 21))
+        self.username_label.setGeometry(QtCore.QRect(130, 190, 111, 21))
         self.username_label.setObjectName("username_label")
+        self.username_label.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
         self.password_label = QtWidgets.QLabel(self.centralwidget)
-        self.password_label.setGeometry(QtCore.QRect(150, 240, 81, 21))
+        self.password_label.setGeometry(QtCore.QRect(130, 240, 111, 21))
         self.password_label.setObjectName("password_label")
+        self.password_label.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
         self.email_domain_label = QtWidgets.QLabel(self.centralwidget)
         self.email_domain_label.setGeometry(QtCore.QRect(510, 190, 121, 21))
         self.email_domain_label.setObjectName("email_domain_label")
@@ -121,27 +124,54 @@ class Ui_LoginScreen(object):
 
 
     #def do(self):
-        #self.pap=MyDialog()
+        #self.pap=MyDialog("en")
         #self.pap.retranslateUi_english(self.pap.ui)
         #self.pap.show()
+        #self.pap2=MyNotify("en")
+        #self.pap2.show()
+
+class MyNotify(QtWidgets.QDialog):
+    def __init__(self, language):
+        super().__init__()
+        self.ui = Ui_Notify()
+        self.ui.setupUi(self)
+        if language=='french':   self.retranslateUi_french(self.ui)
+        else:   self.retranslateUi_english(self.ui)
+
+    def retranslateUi_english(self, ui):
+        ui.retranslateUi(self)
+        _translate = QtCore.QCoreApplication.translate
+        ui.label.setText(_translate("Notify", "Invalid Login"))
+
+    def retranslateUi_french(self, ui):
+        ui.retranslateUi(self)
+        _translate = QtCore.QCoreApplication.translate
+        ui.label.setText(_translate("Notify", "Identifiant Invalide"))
+
+
 
 class MyDialog(QtWidgets.QDialog):
-        def __init__(self):
-            super().__init__()
-            self.ui = Ui_SQ_Dialog()
-            self.ui.setupUi(self)
-            self.retranslateUi_english(self.ui)
-            self.ui.description_label.setStyleSheet("color:rgb(32, 74, 135)")
+    def __init__(self, language):
+        super().__init__()
+        self.ui = Ui_SQ_Dialog()
+        self.ui.setupUi(self)
+        self.ui.description_label.setStyleSheet("color:rgb(32, 74, 135)")
+        if language=='french':   self.retranslateUi_french(self.ui)
+        else:   self.retranslateUi_english(self.ui)
+        self.ui.OK_Button.clicked.connect(self.close)
 
-        def retranslateUi_english(self, ui):
-            ui.retranslateUi_english(self)
-            _translate = QtCore.QCoreApplication.translate
-            ui.description_label.setText(_translate("RegisterSQ_Dialog", "Enter your security question and answer below. After verification, your password will be sent to your account."))
+    def close(self):
+        self.hide()
 
-        def retranslateUi_french(self, ui):
-            ui.retranslateUi_english(self)
-            _translate = QtCore.QCoreApplication.translate
-            ui.description_label.setText(_translate("Entrez votre question de sécurité et votre réponse ci-dessous. Après vérification, votre mot de passe sera envoyé à votre compte."))
+    def retranslateUi_english(self, ui):
+        ui.retranslateUi_english(self)
+        _translate = QtCore.QCoreApplication.translate
+        ui.description_label.setText(_translate("SQ_Dialog", "Enter your security question and answer below. After verification, your password will be sent to your account."))
+
+    def retranslateUi_french(self, ui):
+        ui.retranslateUi_french(self)
+        _translate = QtCore.QCoreApplication.translate
+        ui.description_label.setText(_translate("SQ_Dialog", "Entrez votre question de sécurité et votre réponse ci-dessous. Après vérification, votre mot de passe sera envoyé à votre compte."))
 
 
 if __name__ == "__main__":
