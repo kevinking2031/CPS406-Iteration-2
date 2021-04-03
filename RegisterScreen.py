@@ -173,22 +173,26 @@ class Ui_RegisterScreen(object):
         #self.pap.show()
 
 class MyDialog(QtWidgets.QDialog):
-        def __init__(self):
-            super().__init__()
-            self.ui = Ui_SQ_Dialog()
-            self.ui.setupUi(self)
-            self.retranslateUi_english(self.ui)
-            self.ui.description_label.setStyleSheet("color:rgb(115, 210, 22)")
+    def __init__(self):
+        super().__init__()
+        self.ui = Ui_SQ_Dialog()
+        self.ui.setupUi(self)
+        self.retranslateUi_english(self.ui)
+        self.ui.description_label.setStyleSheet("color:rgb(115, 210, 22)")
+        self.ui.OK_Button.clicked.connect(self.close)
 
-        def retranslateUi_english(self, ui):
-            ui.retranslateUi_english(self)
-            _translate = QtCore.QCoreApplication.translate
-            ui.description_label.setText(_translate("SQ_Dialog", "Your registration is almost complete! Enter a security question and answer to verify your identity should you forget your password"))
+    def close(self):
+        self.hide()
 
-        def retranslateUi_french(self, ui):
-            ui.retranslateUi_english(self)
-            _translate = QtCore.QCoreApplication.translate
-            ui.description_label.setText(_translate("Votre inscription est presque terminée! Entrez une question de sécurité et une réponse pour vérifier votre identité si vous oubliez votre mot de passe."))
+    def retranslateUi_english(self, ui):
+        ui.retranslateUi_english(self)
+        _translate = QtCore.QCoreApplication.translate
+        ui.description_label.setText(_translate("SQ_Dialog", "Your registration is almost complete! Enter a security question and answer to verify your identity should you forget your password"))
+
+    def retranslateUi_french(self, ui):
+        ui.retranslateUi_english(self)
+        _translate = QtCore.QCoreApplication.translate
+        ui.description_label.setText(_translate("Votre inscription est presque terminée! Entrez une question de sécurité et une réponse pour vérifier votre identité si vous oubliez votre mot de passe."))
 
 
 if __name__ == "__main__":
