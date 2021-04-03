@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_SQ_Dialog(object):
     def setupUi(self, SQ_Dialog):
         SQ_Dialog.setObjectName("SQ_Dialog")
-        SQ_Dialog.resize(640, 480)
+        SQ_Dialog.setFixedSize(640, 480)
         self.security_answer = QtWidgets.QLineEdit(SQ_Dialog)
         self.security_answer.setGeometry(QtCore.QRect(190, 300, 381, 51))
         self.security_answer.setObjectName("security_answer")
@@ -29,7 +29,7 @@ class Ui_SQ_Dialog(object):
         self.question_label.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
         self.question_label.setObjectName("question_label")
         self.answer_label = QtWidgets.QLabel(SQ_Dialog)
-        self.answer_label.setGeometry(QtCore.QRect(50, 310, 111, 21))
+        self.answer_label.setGeometry(QtCore.QRect(20, 310, 141, 31))
         font = QtGui.QFont()
         font.setPointSize(13)
         self.answer_label.setFont(font)
@@ -67,5 +67,6 @@ class Ui_SQ_Dialog(object):
         _translate = QtCore.QCoreApplication.translate
         SQ_Dialog.setWindowTitle(_translate("SQ_Dialog", "Cypress"))
         self.question_label.setText(_translate("SQ_Dialog", "Votre question:"))
-        self.OK_Button.setText(_translate("SQ_Dialog", "OK:"))
+        self.answer_label.setText(_translate("SQ_Dialog", "Votre Réponse:"))
+        self.OK_Button.setText(_translate("SQ_Dialog", "OK"))
 
