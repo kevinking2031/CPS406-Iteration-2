@@ -14,7 +14,7 @@ from SQ_Dialog import Ui_SQ_Dialog
 class Ui_RegisterScreen(object):
     def setupUi(self, RegisterScreen):
         RegisterScreen.setObjectName("RegisterScreen")
-        RegisterScreen.resize(811, 466)
+        RegisterScreen.setFixedSize(811, 466)
         self.centralwidget = QtWidgets.QWidget(RegisterScreen)
         self.centralwidget.setObjectName("centralwidget")
         self.header_label = QtWidgets.QLabel(self.centralwidget)
