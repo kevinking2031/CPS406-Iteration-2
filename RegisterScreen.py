@@ -192,7 +192,7 @@ class MyDialog(QtWidgets.QDialog):
     def retranslateUi_french(self, ui):
         ui.retranslateUi_english(self)
         _translate = QtCore.QCoreApplication.translate
-        ui.description_label.setText(_translate("Votre inscription est presque terminée! Entrez une question de sécurité et une réponse pour vérifier votre identité si vous oubliez votre mot de passe."))
+        ui.description_label.setText(_translate("SQ_Dialog", "Votre inscription est presque terminée! Entrez une question de sécurité et une réponse pour vérifier votre identité si vous oubliez votre mot de passe."))
 
 
 if __name__ == "__main__":
