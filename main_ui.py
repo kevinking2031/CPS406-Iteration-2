@@ -11,20 +11,23 @@ import ReportScreen #import Ui_ReportScreen
 
 global language
 #This is the array of user information, this array does not include user security questions and answers
-userData=[]
-userData.append(['John','Landon','1234 SomePlace Crescent','4161234567','johnLandon123','jLandon1234',0]) #For test purposes
-userData.append(['Riley', 'Alex', '123 Anywhere Road', '123456789', 'alexRiley', 'pAssword1',0]) #For test purposes
-#userData.append(['Briana', 'Alice', '123 Chip', '123456789', 'briChip', 'pass123WORD']) #For testing 
+global userData=[]
+userData.append(['John','Landon','1234 SomePlace Crescent','4161234567',"jLand@gmail.com",\
+                 'johnLandon123','jLandon1234',0]) #For test purposes
+userData.append(['Riley', 'Alex', '123 Anywhere Road', '123456789',"alexaRiley@hotmail.com",\
+                 'alexRiley', 'pAssword1',0]) #For test purposes
+#userData.append(['Briana', 'Alice', '123 Chip', '123456789',briannaMail56@gmail.com,'briChip'\
+                    #, 'pass123WORD',0]) #For testing 
 
 #This array stores security question and answer info about each user (Only needed for register/login purposes)
-userQData=[]
+global userQData=[]
 userQData.append(["Favourite car?","Honda"]) #For test purposes
 userQData.append(["Favourite colour?","Blue"]) #For test purposes
 #userQData.append(["Favourite day of the week?","Monday"]) #For testing
 
 #This is the variable that holds the user name of the user currently logged in
 #It will be None if no one is logged in
-userAccount=None
+global userAccount=None
 
 class MyFrontScreen(QMainWindow):
     def __init__(self):
@@ -124,7 +127,7 @@ class MyLoginScreen(QMainWindow):
         #Check if the username exists in userData
         for user in userData:
             userNum+=1
-            if user[4]==listInfo[0]:
+            if user[5]==listInfo[0]:
                 foundUser=True
                 break
             
@@ -135,19 +138,19 @@ class MyLoginScreen(QMainWindow):
                 return("Le nom d'utilisateur n'a pas de compte actuellement")
 
         #Check if the user has 3 failed login attemps
-        if userData[userNum][6]==3:
+        if userData[userNum][7]==3:
             if language=="english":
                 return("User is banned due to 3 failed login attempts")
             else:
                 return("L'utilisateur est banni en raison de 3 tentatives de connexion infructueuses")
 
         #Check if the password is correct for the username
-        if userData[userNum][5]==listInfo[1]:
+        if userData[userNum][6]==listInfo[1]:
             #Put the username as the currently logged in user
             userAccount=listInfo[0]
             return True
         else:
-            userData[userNum][6]+=1
+            userData[userNum][7]+=1
             if language=="english":
                 return("Incorrect password")
             else:
@@ -188,11 +191,12 @@ class MyRegisterScreen(QMainWindow):
         lastName=self.ui.last_name.text()
         address=self.ui.address.text()
         phone=self.ui.phone_1.text()+self.ui.phone_2.text()+self.ui.phone_3.text()
+        email=self.ui.email_address.text()
         userName=self.ui.username.text()
         password=self.ui.password.text()
         
         #Add the elements to a list that will be added to userData if it is correct
-        listInfo=[firstName,lastName,address,phone,userName,password]
+        listInfo=[firstName,lastName,address,phone,email,userName,password,0]
 
         #Send the information into isValidRegister to see if it is valid
         if self.isValidRegister(listInfo)!=True:
@@ -218,22 +222,31 @@ class MyRegisterScreen(QMainWindow):
         foundUpper=False #If an uppercase letter has been found in password
         foundLower=False #If a lowercase letter has been found in password
         #Make sure no fields are empty, if any are empty return false
-        for element in listInfo:
+        
+        for i in range(0,len(listInfo)-1):
+            element=listInfo[i]
             if len(element)==0:
                 if language=="english":
                     return("Not all fields are filled out correctly")
                 else:
                     return("Tous les champs ne sont pas remplis correctement")
             
+        #for element in listInfo:
+            #if len(element)==0:
+                #if language=="english":
+                    #return("Not all fields are filled out correctly")
+                #else:
+                    #return("Tous les champs ne sont pas remplis correctement")
+            
         #If the length of password is less than 8 chars return false
-        if len(listInfo[5])<8:
+        if len(listInfo[6])<8:
             if language=="english":
                 return("Length of password is too short")
             else:
                 return("La longueur du mot de passe est trop courte")
             
         #Go through each character in password to check requirements
-        for letter in listInfo[5]:
+        for letter in listInfo[6]:
             #Check for a number
             if letter.isnumeric():
                 foundNum=True
@@ -244,7 +257,7 @@ class MyRegisterScreen(QMainWindow):
             if letter.islower():
                 foundLower=True
 
-        #Check if the password is valid (field 5)
+        #Check if the password is valid (field 6)
         if (foundNum==False or foundUpper==False or foundLower==False):
             if language=="english":
                 return("Password is missing at least one of the following:\n - 1 number \n - 1 uppercase letter\
@@ -258,9 +271,9 @@ class MyRegisterScreen(QMainWindow):
             userData.append(listInfo)
             return True
 
-        #If it is not the first element in userData check if the username is free (field 4)
+        #If it is not the first element in userData check if the username is free (field 5)
         for user in userData:
-            if user[4]==listInfo[4]:
+            if user[5]==listInfo[5]:
                 if language=="english":
                     return("Username is already taken")
                 else:
