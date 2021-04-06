@@ -9,7 +9,7 @@ from LoginScreen import Ui_LoginScreen
 from RegisterScreen import Ui_RegisterScreen
 from ReportScreen import Ui_ReportScreen
 
-global language
+global languag
 
 class MyFrontScreen(QMainWindow):
 	def __init__(self):
