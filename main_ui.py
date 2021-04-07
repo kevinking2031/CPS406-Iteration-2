@@ -108,7 +108,7 @@ class MyMainScreen(QMainWindow):
         for i in range(len(page_obj)):
             if page_btn[i].isChecked():
                 
-                #if i == 10 logout
+                #if i == 10 logout (do it before netx statements i.e. "self.hide...")
                 self.hide()
                 self.next=page_obj[i]; self.next.show()
 
