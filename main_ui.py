@@ -37,13 +37,13 @@ userAccount=None
 
 global userReports
 userReports={'johnLandon123':[
-	['', 'Utility Failures'],
-	['Address', 'Potholes'],
-	['Address', 'Eroded Streets'],
-	['Address', 'Tree Collapse'],
-	['Address', 'Flooded Streets'],
-	['Address', 'Mould and Spore Growth'],
-	['Address', 'Garbage or any Other Road Blocking Objects'],
+	['Address1', 'Utility Failures'],
+	['Address2', 'Potholes'],
+	['Address3', 'Eroded Streets'],
+	['Address4', 'Tree Collapse'],
+	['Address5', 'Flooded Streets'],
+	['Address6', 'Mould and Spore Growth'],
+	['Address7', 'Garbage or any Other Road Blocking Objects'],
 ]} #temporary list for testing please initialise proper list when user logs in where 'johnLandon123' = userAccount(username)
 
 class MyFrontScreen(QMainWindow):
