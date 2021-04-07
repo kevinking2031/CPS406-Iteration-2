@@ -37,7 +37,7 @@ userAccount=None
 
 global userReports
 userReports={'johnLandon123':[
-	['Address', 'Utility Failures'],
+	['', 'Utility Failures'],
 	['Address', 'Potholes'],
 	['Address', 'Eroded Streets'],
 	['Address', 'Tree Collapse'],
