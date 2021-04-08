@@ -92,7 +92,7 @@ class MyMainScreen(QMainWindow):
             self.ui.friend_button,
             self.ui.logout_button
         ]
-        page_obj=[
+        page_obj = [
             MyRegisterScreen(),
             MyLoginScreen(),
             MyReportScreen(),
@@ -101,16 +101,27 @@ class MyMainScreen(QMainWindow):
             MyMainScreen(),
             MyMainScreen(),
             MyProfileScreen(),
-            MyUserReports(),
+            None,
             MyMainScreen()
         ]
+        if userAccount in userReports:
+            page_obj[8] = MyUserReports()
 
         for i in range(len(page_obj)):
             if page_btn[i].isChecked():
-                
-                #if i == 10 logout (do it before netx statements i.e. "self.hide...")
-                self.hide()
-                self.next=page_obj[i]; self.next.show()
+                # if i == 10 logout (do it before netx statements i.e. "self.hide...")
+
+                if i == 8 and page_obj[8] is None:
+                    msg = QMessageBox()
+                    if language == "english":
+                        msg.setWindowTitle("Login Error")
+                    else:
+                        msg.setWindowTitle("Erreur d'identification")
+                    msg.exec_()
+                else:
+                    self.hide()
+                    self.next = page_obj[i]
+                    self.next.show()
 
 class MyLoginScreen(QMainWindow):
     def __init__(self):
