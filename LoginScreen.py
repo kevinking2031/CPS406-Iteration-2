@@ -155,7 +155,7 @@ class MyDialog(QtWidgets.QDialog):
         self.ui.security_question.setObjectName("security_question")
         self.ui.security_question.setStyleSheet("background-color:rgb(240, 240, 240)")
         self.ui.security_question.setAlignment(QtCore.Qt.AlignTop)
-        self.security_question.setText(answer)
+        self.ui.security_question.setText(answer)
         font = QtGui.QFont(); font.setFamily("Noto Mono"); font.setPointSize(13)
         self.ui.security_question.setFont(font)
         if language=='french':   self.retranslateUi_french(self.ui)

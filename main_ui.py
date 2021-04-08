@@ -195,7 +195,8 @@ class MyLoginScreen(QMainWindow):
                 return("Mot de passe incorrect")
 
     def forgot_clicked(self):
-        self.SQ=LoginScreen.MyDialog(language)
+        answer="Get User Answer"
+        self.SQ=LoginScreen.MyDialog(answer, language)
         #get info with : self.SQ.ui.security_answer.text() and self.SQ.ui.security_question.text()
         self.hide()     
         self.SQ.exec_()
@@ -469,3 +470,4 @@ if __name__ == '__main__':
     w.show()
     sys.exit(app.exec_())
     
+
