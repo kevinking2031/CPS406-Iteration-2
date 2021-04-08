@@ -61,7 +61,7 @@ class Ui_FrontScreen(object):
         self.toronto_logo_label = QtWidgets.QLabel(self.centralwidget)
         self.toronto_logo_label.setGeometry(QtCore.QRect(340, 140, 141, 91))
         self.toronto_logo_label.setText("")
-        self.toronto_logo_label.setPixmap(QtGui.QPixmap("images/toronto_logo.jpg"))
+        self.toronto_logo_label.setPixmap(QtGui.QPixmap("toronto_logo.jpg"))
         self.toronto_logo_label.setObjectName("toronto_logo_label")
         FrontScreen.setCentralWidget(self.centralwidget)
         self.statusbar = QtWidgets.QStatusBar(FrontScreen)

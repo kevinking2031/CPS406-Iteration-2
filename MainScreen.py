@@ -75,6 +75,9 @@ class Ui_MainScreen(object):
         self.profile_button = QtWidgets.QRadioButton(self.scrollAreaWidgetContents)
         self.profile_button.setObjectName("profile_button")
         self.verticalLayout.addWidget(self.profile_button)
+        self.myReports_button = QtWidgets.QRadioButton(self.scrollAreaWidgetContents)
+        self.myReports_button.setObjectName("myReports_button")
+        self.verticalLayout.addWidget(self.myReports_button)
         self.friend_button = QtWidgets.QRadioButton(self.scrollAreaWidgetContents)
         self.friend_button.setObjectName("friend_button")
         self.verticalLayout.addWidget(self.friend_button)
@@ -99,7 +102,7 @@ class Ui_MainScreen(object):
         self.statusbar.setObjectName("statusbar")
         MainScreen.setStatusBar(self.statusbar)
 
-        self.retranslateUi_french(MainScreen)
+        self.retranslateUi_english(MainScreen)
         QtCore.QMetaObject.connectSlotsByName(MainScreen)
 
     def retranslateUi_english(self, MainScreen):
@@ -115,6 +118,7 @@ class Ui_MainScreen(object):
         self.faq_button.setText(_translate("MainScreen", "FAQ"))
         self.contact_button.setText(_translate("MainScreen", "Contact Us"))
         self.profile_button.setText(_translate("MainScreen", "My Profile"))
+        self.myReports_button.setText(_translate("MainScreen", "My Reports"))
         self.friend_button.setText(_translate("MainScreen", "Tell a friend"))
         self.logout_button.setText(_translate("MainScreen", "Logout"))
         self.links_label.setText(_translate("MainScreen", "QUICK LINKS >>"))
@@ -132,6 +136,7 @@ class Ui_MainScreen(object):
         self.faq_button.setText(_translate("MainScreen", "FAQ"))
         self.contact_button.setText(_translate("MainScreen", "Nous Contacter"))
         self.profile_button.setText(_translate("MainScreen", "Mon Profil"))
+        self.myReports_button.setText(_translate("MainScreen", "Mes Rapports"))
         self.friend_button.setText(_translate("MainScreen", "Dire à un ami"))
         self.logout_button.setText(_translate("MainScreen", "Se Déconnecter"))
         self.links_label.setText(_translate("MainScreen", "LIENS RAPIDES >>"))
