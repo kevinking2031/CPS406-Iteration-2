@@ -39,13 +39,13 @@ userAccount=None
 
 global userReports
 userReports={'johnLandon123':[
-	['Address1', 'Utility Failures'],
-	['Address2', 'Potholes'],
-	['Address3', 'Eroded Streets'],
-	['Address4', 'Tree Collapse'],
-	['Address5', 'Flooded Streets'],
-	['Address6', 'Mould and Spore Growth'],
-	['Address7', 'Garbage or any Other Road Blocking Objects'],
+    ['Address1', 'Utility Failures'],
+    ['Address2', 'Potholes'],
+    ['Address3', 'Eroded Streets'],
+    ['Address4', 'Tree Collapse'],
+    ['Address5', 'Flooded Streets'],
+    ['Address6', 'Mould and Spore Growth'],
+    ['Address7', 'Garbage or any Other Road Blocking Objects'],
 ]} #temporary list for testing please initialise proper list when user logs in where 'johnLandon123' = userAccount(username)
 
 class MyFrontScreen(QMainWindow):
@@ -88,8 +88,6 @@ class MyMainScreen(QMainWindow):
 
     def go_clicked(self):
         page_btn=[
-            self.ui.register_button,
-            self.ui.login_button, 
             self.ui.report_button,
             self.ui.suggest_button, 
             self.ui.vote_button, 
@@ -101,8 +99,6 @@ class MyMainScreen(QMainWindow):
             self.ui.logout_button
         ]
         page_obj = [
-            MyRegisterScreen(),
-            MyLoginScreen(),
             MyReportScreen(),
             MyMainScreen(),
             MyMainScreen(),
@@ -110,16 +106,17 @@ class MyMainScreen(QMainWindow):
             MyContactScreen(),
             MyProfileScreen(),
             None,
-            MyMainScreen()
+            MyMainScreen,
+            MyLoginScreen()
         ]
         if userAccount in userReports:
-            page_obj[8] = MyUserReports()
+            page_obj[6] = MyUserReports()
 
         for i in range(len(page_obj)):
             if page_btn[i].isChecked():
                 # if i == 10 logout (do it before netx statements i.e. "self.hide...")
 
-                if i == 8 and page_obj[8] is None:
+                if i == 6 and page_obj[6] is None:
                     msg = QMessageBox()
                     if language == "english":
                         msg.setWindowTitle("Login Error")
@@ -355,48 +352,48 @@ class MyRegisterScreen(QMainWindow):
         self.next.show()
 
 class MyReportScreen(QMainWindow):
-	def __init__(self):
-		super().__init__()
-		global language
-		self.ui=ReportScreen.Ui_ReportScreen()
-		self.ui.setupUi(self)
-		if language=='french':   self.ui.retranslateUi_french(self)
-		else:   self.ui.retranslateUi_english(self)
-		self.ui.report_button.clicked.connect(self.report_clicked)
-		self.ui.cancel_button.clicked.connect(self.cancel_clicked)
+    def __init__(self):
+        super().__init__()
+        global language
+        self.ui=ReportScreen.Ui_ReportScreen()
+        self.ui.setupUi(self)
+        if language=='french':   self.ui.retranslateUi_french(self)
+        else:   self.ui.retranslateUi_english(self)
+        self.ui.report_button.clicked.connect(self.report_clicked)
+        self.ui.cancel_button.clicked.connect(self.cancel_clicked)
 
-	def cancel_clicked(self):
-		self.hide()
-		self.next=MyMainScreen(); self.next.show()
+    def cancel_clicked(self):
+        self.hide()
+        self.next=MyMainScreen(); self.next.show()
 
 
-	def report_clicked(self):
-		prblm_str=[
-		'Utility Failures',
-		'Potholes',
-		'City Property Vandalism',
-		'Eroded Streets',
-		'Tree Collapse',
-		'Flooded Streets',
-		'Mould and Spore Growth',
-		'Garbage or any Other Road Blocking Objects'
-		]
-		prblm_btn=[
-		self.ui.utilitly_failures_button,
-		self.ui.potholes_button,
-		self.ui.vandalism_button,
-		self.ui.erroded_streets_button,
-		self.ui.tree_collapse_button,
-		self.ui.flood_button,
-		self.ui.mould_button,
-		self.ui.road_block_button
-		]
-		address=self.ui.address.text()
-		for i in range(len(prblm_str)):
-			if prblm_btn[i].isChecked() and len(address) != 0:
-				promblem=prblm_str[i]
-			
-			# Msg Box when all field are not filled for report creation.
+    def report_clicked(self):
+        prblm_str=[
+        'Utility Failures',
+        'Potholes',
+        'City Property Vandalism',
+        'Eroded Streets',
+        'Tree Collapse',
+        'Flooded Streets',
+        'Mould and Spore Growth',
+        'Garbage or any Other Road Blocking Objects'
+        ]
+        prblm_btn=[
+        self.ui.utilitly_failures_button,
+        self.ui.potholes_button,
+        self.ui.vandalism_button,
+        self.ui.erroded_streets_button,
+        self.ui.tree_collapse_button,
+        self.ui.flood_button,
+        self.ui.mould_button,
+        self.ui.road_block_button
+        ]
+        address=self.ui.address.text()
+        for i in range(len(prblm_str)):
+            if prblm_btn[i].isChecked() and len(address) != 0:
+                promblem=prblm_str[i]
+
+            # Msg Box when all field are not filled for report creation.
 # 			else:
 # 				msg = QMessageBox()
 #                    		if language == "english":
@@ -404,127 +401,135 @@ class MyReportScreen(QMainWindow):
 #                     		else:
 # 					msg.setWindowTitle("Erreur de création de rapport")
 #                     		msg.exec_()
-        	
-		if userAccount not in userReports:
-			userReports[userAccount] = [[address, promblem]]
+
+        if userAccount not in userReports:
+            userReports[userAccount] = [[address, promblem]]
 # 			msg = QMessageBox()
 #                    	if language == "english":
 #                         	msg.setWindowTitle("Report Creation")
 #                     	else:
 # 				msg.setWindowTitle("Création de rapports")
 #                     	msg.exec_()
-		
-		else:
-			userReports[userAccount].append([address, promblem])
+
+        else:
+            userReports[userAccount].append([address, promblem])
 # 			msg = QMessageBox()
 #                    	if language == "english":
 #                         	msg.setWindowTitle("Report Creation")
 #                     	else:
 # 				msg.setWindowTitle("Création de rapports")
 #                     	msg.exec_()
-        	
-		self.cancel_clicked()
+
+        self.cancel_clicked()
 
 class MyProfileScreen(QMainWindow):
-	def __init__(self):
-		super().__init__()
-		global language
-		global userData
-		global userAccount
-		self.userInfo=[]
-		for i in range(len(userData)):
-			if userData[i][5] == userAccount:	self.userInfo=userData[i]+userQData[i]; break;
+    def __init__(self):
+        super().__init__()
+        global language
+        global userData
+        global userAccount
+        self.userInfo=[]
+        for i in range(len(userData)):
+            if userData[i][5] == userAccount:	self.userInfo=userData[i]+userQData[i]; break;
 
-		self.ui=ProfileScreen.Ui_ProfileScreen()
-		self.ui.setupUi(self)
-		#if language=='french':   self.ui.retranslateUi_french(self)
-		#else:   self.ui.retranslateUi_english(self)
-		self.ui.retranslateUi(self, self.userInfo)
-		self.ui.edit_button.clicked.connect(self.resetUpUi)
-		self.ui.delete_button.clicked.connect(self.delete_clicked) 
-		self.ui.cancel_button.clicked.connect(self.cancel_clicked)
+        self.ui=ProfileScreen.Ui_ProfileScreen()
+        self.ui.setupUi(self)
+        #if language=='french':   self.ui.retranslateUi_french(self)
+        #else:   self.ui.retranslateUi_english(self)
+        self.ui.retranslateUi(self, self.userInfo)
+        self.ui.edit_button.clicked.connect(self.resetUpUi)
+        self.ui.delete_button.clicked.connect(self.delete_clicked)
+        self.ui.cancel_button.clicked.connect(self.cancel_clicked)
 
-	def cancel_clicked(self):
-		self.hide()
-		self.next=MyMainScreen(); self.next.show()
+    def cancel_clicked(self):
+        self.hide()
+        self.next=MyMainScreen(); self.next.show()
 
-	def delete_clicked(self):
-		warn=QMessageBox()
-		warn.setIcon(QMessageBox.Warning)
-		if language=='french': warn.setText("Voulez-vous vraiment supprimer votre profil?")
-		else: warn.setText("Are you sure you want to delete your profile?")
-		reply=warn.exec_()
-		if reply == QMessageBox.Ok:
-			#delete profile here
-			pass
-		self.cancel_clicked()
+    def delete_clicked(self):
+        warn=QMessageBox()
+        warn.setIcon(QMessageBox.Warning)
+        if language=='french': warn.setText("Voulez-vous vraiment supprimer votre profil?")
+        else: warn.setText("Are you sure you want to delete your profile?")
+        reply=warn.exec_()
+        if reply == QMessageBox.Ok:
+            #delete profile here
+            pass
+        self.cancel_clicked()
 
-	def resetUpUi(self):
-		if self.ui.state=='edit':
-			self.ui.first_name.setReadOnly(False)
-			self.ui.last_name.setReadOnly(False)
-			self.ui.address.setReadOnly(False)
-			self.ui.phone.setReadOnly(False)
-			self.ui.username.setReadOnly(False)
-			self.ui.password.setReadOnly(False)
-			self.ui.security_question.setReadOnly(False)
-			self.ui.security_answer.setReadOnly(False)
-			self.ui.state='save'
-			self.ui.retranslateUi(self, self.userInfo)
-		else:
-			#save by updating user information
-			self.cancel_clicked()	
+    def resetUpUi(self):
+        if self.ui.state=='edit':
+            self.ui.first_name.setReadOnly(False)
+            self.ui.last_name.setReadOnly(False)
+            self.ui.address.setReadOnly(False)
+            self.ui.phone.setReadOnly(False)
+            self.ui.username.setReadOnly(False)
+            self.ui.password.setReadOnly(False)
+            self.ui.security_question.setReadOnly(False)
+            self.ui.security_answer.setReadOnly(False)
+            self.ui.state='save'
+            self.ui.retranslateUi(self, self.userInfo)
+        else:
+            #save by updating user information
+            self.cancel_clicked()
 
 class MyUserReports(QMainWindow):
-	def __init__(self):
-		super().__init__()
-		global userReports
-		global userAccount
-		self.ui=MyReports.Ui_MyReports()
-		self.ui.setupUi(self)
-		#if language=='french':   self.ui.retranslateUi_french(self)
-		#else:   self.ui.retranslateUi_english(self)
-		self.prblm_lis = userReports[userAccount]
-		self.clicked_prblm=-1
-		for i in range(len(self.prblm_lis)):
-			button=QRadioButton()
-			self.ui.gridLayout.addWidget(button, i, 0)
-			button.clicked.connect(lambda : self.prblm_clicked(i))
-			label=QLabel(self.prblm_lis[i][0]); label.setWordWrap(True)
-			self.ui.gridLayout.addWidget(label, i, 1)
-			label=QLabel(self.prblm_lis[i][1]); label.setWordWrap(True)
-			self.ui.gridLayout.addWidget(label, i, 2)
-		self.ui.edit_button.clicked.connect(self.edit_clicked)
-		self.ui.cancel_button.clicked.connect(self.cancel_clicked)
-		self.ui.delete_button.clicked.connect(self.delete_clicked)
+    def __init__(self):
+        super().__init__()
+        global userReports
+        global userAccount
+        self.ui=MyReports.Ui_MyReports()
+        self.ui.setupUi(self)
+        #if language=='french':   self.ui.retranslateUi_french(self)
+        #else:   self.ui.retranslateUi_english(self)
+        self.prblm_lis = userReports[userAccount]
+        self.clicked_prblm=-1
+        buttons = []
+        for i in range(len(self.prblm_lis)):
+            button=QRadioButton()
+            buttons.append(button)
+            self.ui.gridLayout.addWidget(buttons[i], i, 0)
+            buttons[i].clicked.connect(lambda: self.prblm_clicked(buttons))
+            label=QLabel(self.prblm_lis[i][0]); label.setWordWrap(True)
+            self.ui.gridLayout.addWidget(label, i, 1)
+            label=QLabel(self.prblm_lis[i][1]); label.setWordWrap(True)
+            self.ui.gridLayout.addWidget(label, i, 2)
+        self.ui.edit_button.clicked.connect(self.edit_clicked)
+        self.ui.cancel_button.clicked.connect(self.cancel_clicked)
+        self.ui.delete_button.clicked.connect(self.delete_clicked)
 
-	def prblm_clicked(self, i):
-		self.clicked_prblm=i
-	def edit_clicked(self):
-		if self.clicked_prblm > 0:
-			self.hide()
-			self.next=MyReportScreen(); self.next.ui.address.setText(self.prblm_lis[self.clicked_prblm][0])
-			self.next.show()
-		
-		# check to see if report is in userReports for current user
-		if self.prblm_lis[self.clicked_prblm] in userReports[userAccount]:
-			userReports[userAccount].remove(self.prblm_lis[self.clicked_prblm])
-			
-	def delete_clicked(self):
-		if self.clicked_prblm > 0:
-			warn=QMessageBox()
-			warn.setIcon(QMessageBox.Warning)
-			if language=='french': warn.setText("Voulez-vous vraiment supprimer votre rapport")
-			else: warn.setText("Are you sure you want to delete your report?")
-			warn.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
-			reply=warn.exec_()
-			if reply == QMessageBox.Ok:
-				if self.prblm_lis[self.clicked_prblm] in userReports[userAccount]:
-					userReports[userAccount].remove(self.prblm_lis[self.clicked_prblm])
+    def prblm_clicked(self, buttons):
+        for j in range(len(userReports[userAccount])):
+            if buttons[j].isChecked():
+                self.clicked_prblm = j
 
-	def cancel_clicked(self):
-		self.hide()
-		self.next=MyMainScreen(); self.next.show()
+    def edit_clicked(self):
+        if self.clicked_prblm >= 0:
+            self.hide()
+            self.next=MyReportScreen(); self.next.ui.address.setText(self.prblm_lis[self.clicked_prblm][0])
+            self.next.show()
+
+        # check to see if report is in userReports for current user
+        if self.prblm_lis[self.clicked_prblm] in userReports[userAccount]:
+            userReports[userAccount].remove(self.prblm_lis[self.clicked_prblm])
+
+    def delete_clicked(self):
+        if self.clicked_prblm >= 0:
+            warn=QMessageBox()
+            warn.setIcon(QMessageBox.Warning)
+            if language=='french': warn.setText("Voulez-vous vraiment supprimer votre rapport")
+            else: warn.setText("Are you sure you want to delete your report?")
+            warn.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+            reply=warn.exec_()
+            if reply == QMessageBox.Ok:
+                if self.prblm_lis[self.clicked_prblm] in userReports[userAccount]:
+                    userReports[userAccount].remove(self.prblm_lis[self.clicked_prblm])
+        self.hide()
+        self.next = MyUserReports()
+        self.next.show()
+
+    def cancel_clicked(self):
+        self.hide()
+        self.next=MyMainScreen(); self.next.show()
 
 class MyFaqScreen(QMainWindow):
     def __init__(self):
