@@ -392,6 +392,7 @@ class MyReportScreen(QMainWindow):
 		self.ui.road_block_button
 		]
 		address=self.ui.address.text()
+		promblem = ""
 		for i in range(len(prblm_str)):
 			if prblm_btn[i].isChecked() and len(address) != 0:
 				promblem=prblm_str[i]
