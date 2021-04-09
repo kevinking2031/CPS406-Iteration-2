@@ -372,10 +372,15 @@ class MyReportScreen(QMainWindow):
 		]
 		address=self.ui.address.text()
 		for i in range(len(prblm_str)):
-			if prblm_btn[i].isChecked():
+			if prblm_btn[i].isChecked() and len(address) != 0:
 				promblem=prblm_str[i]
-        
-        # report problem here with 'address' and 'problem' variables
+        	
+		if userAccount not in userReports:
+			userReports[userAccount] = [[address, promblem]]
+		
+		else:
+			userReports[userAccount].append([address, promblem])
+        	
 		self.cancel_clicked()
 
 class MyProfileScreen(QMainWindow):
