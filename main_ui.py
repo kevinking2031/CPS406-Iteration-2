@@ -107,7 +107,7 @@ class MyMainScreen(QMainWindow):
             MyContactScreen(),
             MyProfileScreen(),
             None,
-            MyMainScreen,
+            MyMainScreen(),
             MyLoginScreen()
         ]
         if userAccount in userReports:
@@ -116,16 +116,18 @@ class MyMainScreen(QMainWindow):
         for i in range(len(page_obj)):
             if page_btn[i].isChecked():
                 # if i == 10 logout (do it before netx statements i.e. "self.hide...")
-
+                if i == 8:
+                    userAccount = None
                 if i == 6 and page_obj[6] is None:
                     msg = QMessageBox()
                     if language == "english":
-                        msg.setWindowTitle("Login Error")
+                        msg.setWindowTitle("Reports List Empty")
+                        msg.setText("You must add a report before you can access your reports.")
                     else:
-                        msg.setWindowTitle("Erreur d'identification")
+                        msg.setWindowTitle("Liste des rapports vide")
+                        msg.setText("Vous devez ajouter un rapport avant de pouvoir accéder à vos rapports.")
+
                     msg.exec_()
-                elif i == 8:
-                    userAccount = None
                 else:
                     self.hide()
                     self.next = page_obj[i]
