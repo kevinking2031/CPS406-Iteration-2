@@ -372,10 +372,36 @@ class MyReportScreen(QMainWindow):
 		]
 		address=self.ui.address.text()
 		for i in range(len(prblm_str)):
-			if prblm_btn[i].isChecked():
+			if prblm_btn[i].isChecked() and len(address) != 0:
 				promblem=prblm_str[i]
-        
-        # report problem here with 'address' and 'problem' variables
+			
+			# Msg Box when all field are not filled for report creation.
+# 			else:
+# 				msg = QMessageBox()
+#                    		if language == "english":
+#                         		msg.setWindowTitle("Report Creation Error")
+#                     		else:
+# 					msg.setWindowTitle("Erreur de création de rapport")
+#                     		msg.exec_()
+        	
+		if userAccount not in userReports:
+			userReports[userAccount] = [[address, promblem]]
+# 			msg = QMessageBox()
+#                    	if language == "english":
+#                         	msg.setWindowTitle("Report Creation")
+#                     	else:
+# 				msg.setWindowTitle("Création de rapports")
+#                     	msg.exec_()
+		
+		else:
+			userReports[userAccount].append([address, promblem])
+# 			msg = QMessageBox()
+#                    	if language == "english":
+#                         	msg.setWindowTitle("Report Creation")
+#                     	else:
+# 				msg.setWindowTitle("Création de rapports")
+#                     	msg.exec_()
+        	
 		self.cancel_clicked()
 
 class MyProfileScreen(QMainWindow):
@@ -454,12 +480,15 @@ class MyUserReports(QMainWindow):
 	def prblm_clicked(self, i):
 		self.clicked_prblm=i
 	def edit_clicked(self):
-		#edit the report here
 		if self.clicked_prblm > 0:
 			self.hide()
 			self.next=MyReportScreen(); self.next.ui.address.setText(self.prblm_lis[self.clicked_prblm][0])
 			self.next.show()
-		pass
+		
+		# check to see if report is in userReports for current user
+		if self.prblm_lis[self.clicked_prblm] in userReports[userAccount]:
+			userReports[userAccount].remove(self.prblm_lis[self.clicked_prblm])
+			
 	def delete_clicked(self):
 		if self.clicked_prblm > 0:
 			warn=QMessageBox()
@@ -469,8 +498,8 @@ class MyUserReports(QMainWindow):
 			warn.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
 			reply=warn.exec_()
 			if reply == QMessageBox.Ok:
-				#delete report from system here
-				pass
+				if self.prblm_lis[self.clicked_prblm] in userReports[userAccount]:
+					userReports[userAccount].remove(self.prblm_lis[self.clicked_prblm])
 
 	def cancel_clicked(self):
 		pass
