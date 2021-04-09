@@ -376,31 +376,31 @@ class MyReportScreen(QMainWindow):
 				promblem=prblm_str[i]
 			
 			# Msg Box when all field are not filled for report creation.
-			else:
-				msg = QMessageBox()
-                   		if language == "english":
-                        		msg.setWindowTitle("Report Creation Error")
-                    		else:
-					msg.setWindowTitle("Erreur de création de rapport")
-                    		msg.exec_()
+# 			else:
+# 				msg = QMessageBox()
+#                    		if language == "english":
+#                         		msg.setWindowTitle("Report Creation Error")
+#                     		else:
+# 					msg.setWindowTitle("Erreur de création de rapport")
+#                     		msg.exec_()
         	
 		if userAccount not in userReports:
 			userReports[userAccount] = [[address, promblem]]
-			msg = QMessageBox()
-                   	if language == "english":
-                        	msg.setWindowTitle("Report Creation")
-                    	else:
-				msg.setWindowTitle("Création de rapports")
-                    	msg.exec_()
+# 			msg = QMessageBox()
+#                    	if language == "english":
+#                         	msg.setWindowTitle("Report Creation")
+#                     	else:
+# 				msg.setWindowTitle("Création de rapports")
+#                     	msg.exec_()
 		
 		else:
 			userReports[userAccount].append([address, promblem])
-			msg = QMessageBox()
-                   	if language == "english":
-                        	msg.setWindowTitle("Report Creation")
-                    	else:
-				msg.setWindowTitle("Création de rapports")
-                    	msg.exec_()
+# 			msg = QMessageBox()
+#                    	if language == "english":
+#                         	msg.setWindowTitle("Report Creation")
+#                     	else:
+# 				msg.setWindowTitle("Création de rapports")
+#                     	msg.exec_()
         	
 		self.cancel_clicked()
 
