@@ -523,7 +523,8 @@ class MyUserReports(QMainWindow):
 					userReports[userAccount].remove(self.prblm_lis[self.clicked_prblm])
 
 	def cancel_clicked(self):
-		pass
+		self.hide()
+		self.next=MyMainScreen(); self.next.show()
 
 class MyFaqScreen(QMainWindow):
     def __init__(self):
