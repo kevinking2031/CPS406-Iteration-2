@@ -120,6 +120,7 @@ class Ui_LoginScreen(object):
         self.username_label.setText(_translate("LoginScreen", "Nom d'Utilisateur:"))
         self.password_label.setText(_translate("LoginScreen", "Mot de Passe:"))
         self.email_domain_label.setText(_translate("LoginScreen", "@cypress.on.ca"))
+        self.forgot_button.setText(_translate("LoginScreen", "MOT DE PASSE OUBLIÉ?"))
         self.login_button.setText(_translate("LoginScreen", "Connexion"))
         self.cancel_button.setText(_translate("LoginScreen", "Annuler"))
 
