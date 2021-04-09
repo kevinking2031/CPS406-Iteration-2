@@ -137,6 +137,7 @@ class MyLoginScreen(QMainWindow):
         if language=='french':   self.ui.retranslateUi_french(self)
         else:   self.ui.retranslateUi_english(self)
         self.ui.login_button.clicked.connect(self.login_clicked)
+        self.ui.register_button.clicked.connect(self.register_clicked)
         self.ui.cancel_button.clicked.connect(self.cancel_clicked)
         self.ui.forgot_button.clicked.connect(self.forgot_clicked)
         self.ui.faq_button.clicked.connect(self.faq_clicked)
@@ -174,6 +175,10 @@ class MyLoginScreen(QMainWindow):
         else:
             userAccount=userName
             self.cancel_clicked()
+
+    def register_clicked(self):
+        self.hide()
+        self.next=MyRegisterScreen(); self.next.show()
 
     def isValidLogin(self,listInfo):
         foundUser=False
@@ -300,7 +305,7 @@ class MyRegisterScreen(QMainWindow):
 
     def cancel_clicked(self):
         self.hide()
-        self.next=MyMainScreen();self.next.show()
+        self.next=MyLoginScreen();self.next.show()
 
     def register_clicked(self):
         ## make new user here. Get user info with
@@ -330,7 +335,7 @@ class MyRegisterScreen(QMainWindow):
         else:
             #self.SQ=RegisterScreen.MyDialog(language)
             #get info with : self.SQ.ui.security_answer.text() and self.SQ.ui.security_question.text()
-            self.SQ=LoginScreen.MyDialog(language)
+            self.SQ=LoginScreen.MyDialog("", language)
             self.hide()
             self.SQ.exec_()
             #Append values to the end of the list

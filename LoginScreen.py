@@ -73,6 +73,9 @@ class Ui_LoginScreen(object):
         self.login_button = QtWidgets.QPushButton(self.centralwidget)
         self.login_button.setGeometry(QtCore.QRect(140, 330, 89, 25))
         self.login_button.setObjectName("login_button")
+        self.register_button = QtWidgets.QPushButton(self.centralwidget)
+        self.register_button.setGeometry(QtCore.QRect(140, 365, 89, 25))
+        self.register_button.setObjectName("register_button")
         self.cancel_button = QtWidgets.QPushButton(self.centralwidget)
         self.cancel_button.setGeometry(QtCore.QRect(450, 330, 89, 25))
         self.cancel_button.setObjectName("cancel_button")
@@ -109,6 +112,7 @@ class Ui_LoginScreen(object):
         self.email_domain_label.setText(_translate("LoginScreen", "@cypress.on.ca"))
         self.forgot_button.setText(_translate("LoginScreen", "FORGOT PASSWORD?"))
         self.login_button.setText(_translate("LoginScreen", "Login"))
+        self.register_button.setText(_translate("LoginScreen", "Register"))
         self.cancel_button.setText(_translate("LoginScreen", "Cancel"))
 
     def retranslateUi_french(self, LoginScreen):
@@ -122,6 +126,7 @@ class Ui_LoginScreen(object):
         self.email_domain_label.setText(_translate("LoginScreen", "@cypress.on.ca"))
         self.forgot_button.setText(_translate("LoginScreen", "MOT DE PASSE OUBLIÉ?"))
         self.login_button.setText(_translate("LoginScreen", "Connexion"))
+        self.register_button.setText(_translate("LoginScreen", "S'inscrire"))
         self.cancel_button.setText(_translate("LoginScreen", "Annuler"))
 
 
@@ -153,7 +158,7 @@ class MyNotify(QtWidgets.QDialog):
 
 
 class MyDialog(QtWidgets.QDialog):
-    def __init__(self, answer,language):
+    def __init__(self, answer, language):
         super().__init__()
         self.ui = Ui_SQ_Dialog()
         self.ui.setupUi(self)
