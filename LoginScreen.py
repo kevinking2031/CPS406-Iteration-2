@@ -95,7 +95,7 @@ class Ui_LoginScreen(object):
 
         #self.retranslateUi_english(LoginScreen)
         #self.login_button.clicked.connect(self.do)
-        #self.forgot_button.clicked.connect(self.do)
+        self.forgot_button.clicked.connect(self.do)
         QtCore.QMetaObject.connectSlotsByName(LoginScreen)
 
     def retranslateUi_english(self, LoginScreen):
@@ -124,6 +124,13 @@ class Ui_LoginScreen(object):
         self.cancel_button.setText(_translate("LoginScreen", "Annuler"))
 
 
+    def do(self):
+        self.pap=MyDialog("en", "babalola Asociation")
+        self.pap.retranslateUi_english(self.pap.ui)
+        self.pap.show()
+        #self.pap2=MyNotify("en")
+        #self.pap2.show()
+
 class MyNotify(QtWidgets.QDialog):
     def __init__(self):
         super().__init__()
@@ -145,7 +152,7 @@ class MyNotify(QtWidgets.QDialog):
 
 
 class MyDialog(QtWidgets.QDialog):
-    def __init__(self, answer, language):
+    def __init__(self, language, answer):
         super().__init__()
         self.ui = Ui_SQ_Dialog()
         self.ui.setupUi(self)
@@ -156,6 +163,8 @@ class MyDialog(QtWidgets.QDialog):
         self.ui.security_question.setStyleSheet("background-color:rgb(240, 240, 240)")
         self.ui.security_question.setAlignment(QtCore.Qt.AlignTop)
         self.ui.security_question.setText(answer)
+        self.ui.security_question.setText(answer)
+        self.ui.security_question.setAlignment(QtCore.Qt.AlignTop)
         font = QtGui.QFont(); font.setFamily("Noto Mono"); font.setPointSize(13)
         self.ui.security_question.setFont(font)
         if language=='french':   self.retranslateUi_french(self.ui)
