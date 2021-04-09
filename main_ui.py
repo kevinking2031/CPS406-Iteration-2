@@ -87,6 +87,7 @@ class MyMainScreen(QMainWindow):
         self.ui.go_button.clicked.connect(self.go_clicked)
 
     def go_clicked(self):
+        global userAccount
         page_btn=[
             self.ui.report_button,
             self.ui.suggest_button, 
@@ -123,6 +124,8 @@ class MyMainScreen(QMainWindow):
                     else:
                         msg.setWindowTitle("Erreur d'identification")
                     msg.exec_()
+                elif i == 8:
+                    userAccount = None
                 else:
                     self.hide()
                     self.next = page_obj[i]
