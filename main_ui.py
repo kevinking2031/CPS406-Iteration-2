@@ -3,6 +3,8 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtGui     import *
 from PyQt5.QtCore    import *
 
+import ContactScreen
+import FaqScreen
 import FrontScreen
 import MainScreen
 import LoginScreen
@@ -55,6 +57,7 @@ class MyFrontScreen(QMainWindow):
         language='english'
         self.ui.english_button.clicked.connect(self.eng_clicked)
         self.ui.french_button.clicked.connect(self.fre_clicked)
+        self.ui.faq_button.clicked.connect(self.faq_clicked)
 
     def eng_clicked(self):
         self.hide()
@@ -65,6 +68,11 @@ class MyFrontScreen(QMainWindow):
         global language
         language='french'
         self.eng_clicked()
+
+    def faq_clicked(self):
+        self.hide()
+        self.next=MyFaqScreen()
+        self.next.show()
 
 #class MyCancelClicked
 
@@ -98,8 +106,8 @@ class MyMainScreen(QMainWindow):
             MyReportScreen(),
             MyMainScreen(),
             MyMainScreen(),
-            MyMainScreen(),
-            MyMainScreen(),
+            MyFaqScreen(),
+            MyContactScreen(),
             MyProfileScreen(),
             None,
             MyMainScreen()
@@ -133,7 +141,8 @@ class MyLoginScreen(QMainWindow):
         else:   self.ui.retranslateUi_english(self)
         self.ui.login_button.clicked.connect(self.login_clicked)
         self.ui.cancel_button.clicked.connect(self.cancel_clicked)
-        self.ui.forgot_button.clicked.connect(self.forgot_clicked)  
+        self.ui.forgot_button.clicked.connect(self.forgot_clicked)
+        self.ui.faq_button.clicked.connect(self.faq_clicked)
 
     def cancel_clicked(self):
         if userAccount is not None:
@@ -217,6 +226,12 @@ class MyLoginScreen(QMainWindow):
         #print(self.SQ.ui.security_question.text())
         self.next=MyFrontScreen(); self.next.show()
 
+    def faq_clicked(self):
+        self.hide()
+        self.next = MyFaqScreen()
+        self.next.show()
+
+
 class MyRegisterScreen(QMainWindow):
     def __init__(self):
         super().__init__()
@@ -226,7 +241,8 @@ class MyRegisterScreen(QMainWindow):
         if language=='french':   self.ui.retranslateUi_french(self)
         else:   self.ui.retranslateUi_english(self)
         self.ui.register_button.clicked.connect(self.register_clicked)
-        self.ui.cancel_button.clicked.connect(self.cancel_clicked)  
+        self.ui.cancel_button.clicked.connect(self.cancel_clicked)
+        self.ui.faq_button.clicked.connect(self.faq_clicked)
 
     def cancel_clicked(self):
         self.hide()
@@ -333,6 +349,11 @@ class MyRegisterScreen(QMainWindow):
         userData.append(listInfo)
         return True
 
+    def faq_clicked(self):
+        self.hide()
+        self.next = MyFaqScreen()
+        self.next.show()
+
 class MyReportScreen(QMainWindow):
 	def __init__(self):
 		super().__init__()
@@ -342,7 +363,7 @@ class MyReportScreen(QMainWindow):
 		if language=='french':   self.ui.retranslateUi_french(self)
 		else:   self.ui.retranslateUi_english(self)
 		self.ui.report_button.clicked.connect(self.report_clicked)
-		self.ui.cancel_button.clicked.connect(self.cancel_clicked)  
+		self.ui.cancel_button.clicked.connect(self.cancel_clicked)
 
 	def cancel_clicked(self):
 		self.hide()
@@ -421,7 +442,7 @@ class MyProfileScreen(QMainWindow):
 		self.ui.retranslateUi(self, self.userInfo)
 		self.ui.edit_button.clicked.connect(self.resetUpUi)
 		self.ui.delete_button.clicked.connect(self.delete_clicked) 
-		self.ui.cancel_button.clicked.connect(self.cancel_clicked)  
+		self.ui.cancel_button.clicked.connect(self.cancel_clicked)
 
 	def cancel_clicked(self):
 		self.hide()
@@ -503,6 +524,40 @@ class MyUserReports(QMainWindow):
 
 	def cancel_clicked(self):
 		pass
+
+class MyFaqScreen(QMainWindow):
+    def __init__(self):
+        super().__init__()
+        global language
+        global userAccount
+        self.ui = FaqScreen.UI_FaqScreen()
+        self.ui.setupUi(self)
+        if language == 'french':   self.ui.retranslateUi_french(self)
+        self.ui.ok_button.clicked.connect(self.ok_clicked)
+
+    def ok_clicked(self):
+        if userAccount is not None:
+            self.hide()
+            self.next = MyMainScreen()
+            self.next.show()
+        else:
+            self.hide()
+            self.next = MyFrontScreen()
+            self.next.show()
+
+class MyContactScreen(QMainWindow):
+    def __init__(self):
+        super().__init__()
+        global language
+        self.ui = ContactScreen.UI_ContactScreen()
+        self.ui.setupUi(self)
+        if language == 'french':   self.ui.retranslateUi_french(self)
+        self.ui.ok_button.clicked.connect(self.ok_clicked)
+
+    def ok_clicked(self):
+        self.hide()
+        self.next = MyMainScreen()
+        self.next.show()
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
