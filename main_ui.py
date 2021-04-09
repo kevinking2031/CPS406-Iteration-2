@@ -215,16 +215,73 @@ class MyLoginScreen(QMainWindow):
                 return("Mot de passe incorrect")
 
     def forgot_clicked(self):
-        answer="Get User Answer"
-        self.SQ=LoginScreen.MyDialog(answer, language)
-        #get info with : self.SQ.ui.security_answer.text() and self.SQ.ui.security_question.text()
-        self.hide()     
-        self.SQ.exec_()
-        #Check if the question and answer match up to the userName
-        username=self.ui.username.text()
-        
-        #print(self.SQ.ui.security_question.text())
-        self.next=MyFrontScreen(); self.next.show()
+        userName=self.ui.username.text()
+        foundUser=False
+        userNum=-1
+
+        #if there is no userName entered, prompt the user to enter a username
+        if userName=="":
+            msg = QMessageBox()
+            if language=="english":
+                msg.setWindowTitle("Missing username")
+                msg.setText("Please enter a username in the login page to answer a secret question")
+            else:
+                msg.setWindowTitle("Nom d'utilisateur manquant")
+                msg.setText("Veuillez entrer un nom d'utilisateur dans la page de connexion pour répondre à une question secrète")
+            msg.exec_()
+        else:
+            #Check if the username exists in userData
+            for user in userData:
+                userNum+=1
+                if user[5]==userName:
+                    foundUser=True
+                    break
+            #If it does not exist close this window
+            if foundUser==False:
+                msg = QMessageBox()
+                if language=="english":
+                    msg.setWindowTitle("Login Error")
+                    msg.setText("Username does not currently have an account")
+                else:
+                    msg.setWindowTitle("Erreur d'identification")
+                    msg.setText("Le nom d'utilisateur n'a pas de compte actuellement")
+                msg.exec_()
+            #If it does exist find the user question that corresponds
+            else:
+                #Get the user question
+                question=userQData[userNum][0]
+                #Display the user question
+                self.SQ=LoginScreen.MyDialog(question, language)
+                self.SQ.exec_()
+                answer=self.SQ.ui.security_answer.text()
+                #get info with : self.SQ.ui.security_answer.text() and self.SQ.ui.security_question.text()
+                #Check to see if answer is correct
+                if userQData[userNum][1]==answer:
+                    msg = QMessageBox()
+                    if language=="english":
+                        msg.setWindowTitle("Valid Security Response")
+                        msg.setText("Answer is correct. Please check your email for a message with your password.")
+                    else:
+                        msg.setWindowTitle("Erreur d'identification")
+                        msg.setText("Le nom d'utilisateur n'a pas de compte actuellement")
+                    msg.exec_()
+                    self.hide()     
+                else:
+                    msg = QMessageBox()
+                    if language=="english":
+                        msg.setWindowTitle("Incorrect Security Response")
+                        msg.setText("Security answer is incorrect.")
+                    else:
+                        msg.setWindowTitle("Erreur d'identification")
+                        msg.setText("Le nom d'utilisateur n'a pas de compte actuellement")
+                    msg.exec_()
+                    self.hide()     
+                    #Check if the question and answer match up to the userName
+                    #username=self.ui.username.text()
+                
+                #print(self.SQ.ui.security_question.text())
+                self.next=MyFrontScreen(); self.next.show()
+
 
     def faq_clicked(self):
         self.hide()
