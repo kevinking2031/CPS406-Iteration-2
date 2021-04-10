@@ -8,6 +8,7 @@ class UI_ContactScreen(object):
         ContactScreen.setObjectName("ContactScreen")
         ContactScreen.resize(811, 468)
         ContactScreen.setWindowTitle("Cypress")
+        ContactScreen.setWindowIcon(QtGui.QIcon('images/cypress_logo.png'))
         ContactScreen.setWindowOpacity(2.0)
         ContactScreen.setAutoFillBackground(False)
         ContactScreen.setStyleSheet("")
