@@ -8,6 +8,7 @@ class UI_FaqScreen(object):
         FaqScreen.setObjectName("FaqScreen")
         FaqScreen.resize(811, 468)
         FaqScreen.setWindowTitle("Cypress")
+        FaqScreen.setWindowIcon(QtGui.QIcon('images/cypress_logo.png'))
         FaqScreen.setWindowOpacity(2.0)
         FaqScreen.setAutoFillBackground(False)
         FaqScreen.setStyleSheet("")
