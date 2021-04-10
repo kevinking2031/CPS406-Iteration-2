@@ -529,19 +529,55 @@ class MyReportScreen(QMainWindow):
             self.ui.mould_button,
             self.ui.road_block_button
         ]
-        address = self.ui.address.text()
+        address=self.ui.address.text()
+        promblem = ""
+        msg = None
+        val = True
         for i in range(len(prblm_str)):
-            if prblm_btn[i].isChecked() and len(address) != 0:
-                promblem = prblm_str[i]
+		if prblm_btn[i].isChecked() and len(address) != 0:
+                	promblem = prblm_str[i]
+			break
+		else:
+                	val = False
+	
+	if val == False:
+		msg = QMessageBox()
+		if language == "english":
+			msg.setWindowTitle("Reports Creation Error")
+                	msg.setText("Please ensure you have specified an address and a problem to report a problem.")
+		else:
+			msg.setWindowTitle("Erreur de création de rapports.")
+			msg.setText("Veuillez vous assurer d'avoir spécifié une adresse et un problème pour signaler un problème.")
+		msg.exec_()
+        
+	if userAccount not in userReports:
+		userReports[userAccount] = [[address, promblem]]
+		msg = QMessageBox()
+		
+		if language == "english":
+			msg.setWindowTitle("Reports Creation")
+			msg.setText("Your report has been created and the city council has been notified. ETA to resolve the problem is 2 weeks.")
+		else:
+			msg.setWindowTitle("Création de rapports")
+			msg.setText("Votre rapport a été créé et le conseil municipal en a été informé. L'ETA pour résoudre le problème est de 2 semaines.")
+		msg.exec_()
+		
+	if userAccount in userReports:
+		userReports[userAccount].append([address, promblem])
+		msg = QMessageBox()
+		if language == "english":
+			msg.setWindowTitle("Reports Creation")
+			msg.setText("Your report has been created and the city council has been notified. ETA to resolve the problem is 2 weeks.")
+		else:
+			msg.setWindowTitle("Création de rapports")
+			msg.setText("Votre rapport a été créé et le conseil municipal en a été informé. L'ETA pour résoudre le problème est de 2 semaines.")
+		msg.exec_()
+	
+	if val:
+		self.cancel_clicked()
 
-            # Msg Box when all field are not filled for report creation.
-            # 			else:
-            # 				msg = QMessageBox()
-            #                    		if language == "english":
-            #                         		msg.setWindowTitle("Report Creation Error")
-            #                     		else:
-            # 					msg.setWindowTitle("Erreur de création de rapport")
-            #                     		msg.exec_()
+
+
 
             if userAccount not in userReports:
                 userReports[userAccount] = [[address, promblem]]
