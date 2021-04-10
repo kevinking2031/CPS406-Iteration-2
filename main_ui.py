@@ -150,7 +150,7 @@ class MyMainScreen(QMainWindow):
             MyLoginScreen()
         ]
         if userAccount in userReports:
-            page_obj[6] = MyUserReports()
+            page_obj[7] = MyUserReports()
 
         for i in range(len(page_obj)):
             if page_btn[i].isChecked():
