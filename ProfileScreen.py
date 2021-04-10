@@ -14,7 +14,8 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_ProfileScreen(object):
     def setupUi(self, ProfileScreen):
         ProfileScreen.setObjectName("ProfileScreen")
-        ProfileScreen.resize(825, 466)
+        ProfileScreen.setFixedSize(811, 466)
+        ProfileScreen.setWindowIcon(QtGui.QIcon('images/cypress_logo.png'))
         self.centralwidget = QtWidgets.QWidget(ProfileScreen)
         self.centralwidget.setObjectName("centralwidget")
         self.verticalLayout_3 = QtWidgets.QVBoxLayout(self.centralwidget)
@@ -167,7 +168,7 @@ class Ui_ProfileScreen(object):
         self.address_label.setText(_translate("ProfileScreen", "Address:"))
         self.quesstion_label.setText(_translate("ProfileScreen", "Security Question:"))
         self.password_label.setText(_translate("ProfileScreen", "Password:"))
-        self.security_answer.setText(_translate("ProfileScreen", userInfo[9]))
+        self.security_answer.setText(_translate("ProfileScreen", len(userInfo[9])*'●'))
         self.phone_label.setText(_translate("ProfileScreen", "Phone Number:"))
         self.email_address.setText(_translate("ProfileScreen", userInfo[4]))
         self.fn_label.setText(_translate("ProfileScreen", "First Name:"))
