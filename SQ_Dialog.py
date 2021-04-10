@@ -15,6 +15,7 @@ class Ui_SQ_Dialog(object):
     def setupUi(self, SQ_Dialog):
         SQ_Dialog.setObjectName("SQ_Dialog")
         SQ_Dialog.setFixedSize(640, 480)
+        SQ_Dialog.setWindowIcon(QtGui.QIcon('images/cypress_logo.png'))
         self.security_answer = QtWidgets.QLineEdit(SQ_Dialog)
         self.security_answer.setGeometry(QtCore.QRect(190, 300, 381, 51))
         self.security_answer.setObjectName("security_answer")
@@ -42,18 +43,13 @@ class Ui_SQ_Dialog(object):
         font.setFamily("Noto Mono")
         font.setPointSize(14)
         self.description_label.setFont(font)
-        self.description_label.setStyleSheet("color:rgb(115, 210, 22)")
         self.description_label.setText("")
         self.description_label.setWordWrap(True)
         self.description_label.setObjectName("description_label")
-        self.security_question = QtWidgets.QLineEdit(SQ_Dialog)
-        self.security_question.setGeometry(QtCore.QRect(190, 170, 381, 51))
-        self.security_question.setObjectName("security_question")
         self.OK_Button = QtWidgets.QPushButton(SQ_Dialog)
         self.OK_Button.setGeometry(QtCore.QRect(300, 410, 89, 25))
         self.OK_Button.setObjectName("OK_Button")
 
-        #self.retranslateUi(SQ_Dialog)
         QtCore.QMetaObject.connectSlotsByName(SQ_Dialog)
 
     def retranslateUi_english(self, SQ_Dialog):

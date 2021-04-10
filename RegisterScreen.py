@@ -14,6 +14,7 @@ from SQ_Dialog import Ui_SQ_Dialog
 class Ui_RegisterScreen(object):
     def setupUi(self, RegisterScreen):
         RegisterScreen.setObjectName("RegisterScreen")
+        RegisterScreen.setWindowIcon(QtGui.QIcon('images/cypress_logo.png'))
         RegisterScreen.setFixedSize(811, 466)
         self.centralwidget = QtWidgets.QWidget(RegisterScreen)
         self.centralwidget.setObjectName("centralwidget")
@@ -51,7 +52,7 @@ class Ui_RegisterScreen(object):
         self.fn_label.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
         self.fn_label.setObjectName("fn_label")
         self.ln_label = QtWidgets.QLabel(self.centralwidget)
-        self.ln_label.setGeometry(QtCore.QRect(156, 150, 81, 20))
+        self.ln_label.setGeometry(QtCore.QRect(136, 150, 101, 20))
         self.ln_label.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
         self.ln_label.setObjectName("ln_label")
         self.address_label = QtWidgets.QLabel(self.centralwidget)
@@ -59,19 +60,19 @@ class Ui_RegisterScreen(object):
         self.address_label.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
         self.address_label.setObjectName("address_label")
         self.phone_label = QtWidgets.QLabel(self.centralwidget)
-        self.phone_label.setGeometry(QtCore.QRect(126, 230, 111, 20))
+        self.phone_label.setGeometry(QtCore.QRect(101, 230, 136, 20))
         self.phone_label.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
         self.phone_label.setObjectName("phone_label")
         self.email_label = QtWidgets.QLabel(self.centralwidget)
-        self.email_label.setGeometry(QtCore.QRect(126, 270, 111, 20))
+        self.email_label.setGeometry(QtCore.QRect(121, 270, 116, 20))
         self.email_label.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
         self.email_label.setObjectName("email_label")
         self.username_label = QtWidgets.QLabel(self.centralwidget)
-        self.username_label.setGeometry(QtCore.QRect(166, 310, 71, 20))
+        self.username_label.setGeometry(QtCore.QRect(130, 310, 107, 20))
         self.username_label.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
         self.username_label.setObjectName("username_label")
         self.password_label = QtWidgets.QLabel(self.centralwidget)
-        self.password_label.setGeometry(QtCore.QRect(170, 350, 67, 17))
+        self.password_label.setGeometry(QtCore.QRect(150, 350, 87, 17))
         self.password_label.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
         self.password_label.setObjectName("password_label")
         self.register_button = QtWidgets.QPushButton(self.centralwidget)
@@ -129,12 +130,11 @@ class Ui_RegisterScreen(object):
         RegisterScreen.setStatusBar(self.statusbar)
 
         self.retranslateUi_english(RegisterScreen)
-        #self.register_button.clicked.connect(self.do)
         QtCore.QMetaObject.connectSlotsByName(RegisterScreen)
 
     def retranslateUi_english(self, RegisterScreen):
         _translate = QtCore.QCoreApplication.translate
-        RegisterScreen.setWindowTitle(_translate("RegisterScreen", "Cypress - Register"))
+        RegisterScreen.setWindowTitle(_translate("RegisterScreen", "Cypress"))
         self.description_label.setText(_translate("RegisterScreen", "Please enter your information below:"))
         self.fn_label.setText(_translate("RegisterScreen", "First Name:"))
         self.ln_label.setText(_translate("RegisterScreen", "Last Name:"))
@@ -152,7 +152,7 @@ class Ui_RegisterScreen(object):
 
     def retranslateUi_french(self, RegisterScreen):
         _translate = QtCore.QCoreApplication.translate
-        RegisterScreen.setWindowTitle(_translate("RegisterScreen", "Cypress - Register"))
+        RegisterScreen.setWindowTitle(_translate("RegisterScreen", "Cypress"))
         self.description_label.setText(_translate("RegisterScreen", "S'il vous plaît entrer vos informations ci-dessous:"))
         self.fn_label.setText(_translate("RegisterScreen", "Prénom:"))
         self.ln_label.setText(_translate("RegisterScreen", "Nom de Famille:"))
@@ -167,18 +167,20 @@ class Ui_RegisterScreen(object):
         self.dash_label2.setText(_translate("RegisterScreen", "-"))
         self.email_domain_label.setText(_translate("RegisterScreen", "@cypress.on.ca"))
    
-    #def do(self):
-        #self.pap=MyDialog()
-        #self.pap.retranslateUi_english(self.pap.ui)
-        #self.pap.show()
 
 class MyDialog(QtWidgets.QDialog):
-    def __init__(self):
+    def __init__(self, language):
         super().__init__()
         self.ui = Ui_SQ_Dialog()
         self.ui.setupUi(self)
         self.retranslateUi_english(self.ui)
+        self.ui.security_question = QtWidgets.QLineEdit(self)
+        self.ui.security_question.setGeometry(QtCore.QRect(190, 170,  381, 51))
+        self.ui.security_question.setObjectName("security_question")
         self.ui.description_label.setStyleSheet("color:rgb(115, 210, 22)")
+        
+        if language=='french':   self.retranslateUi_french(self.ui)
+        else:   self.retranslateUi_english(self.ui)
         self.ui.OK_Button.clicked.connect(self.close)
 
     def close(self):

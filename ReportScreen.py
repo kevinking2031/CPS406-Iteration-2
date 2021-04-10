@@ -14,7 +14,8 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_ReportScreen(object):
     def setupUi(self, ReportScreen):
         ReportScreen.setObjectName("ReportScreen")
-        ReportScreen.resize(811, 464)
+        ReportScreen.setFixedSize(811, 466)
+        ReportScreen.setWindowIcon(QtGui.QIcon('images/cypress_logo.png'))
         self.centralwidget = QtWidgets.QWidget(ReportScreen)
         self.centralwidget.setObjectName("centralwidget")
         self.address_label = QtWidgets.QLabel(self.centralwidget)

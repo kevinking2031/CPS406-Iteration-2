@@ -17,7 +17,7 @@ class Ui_LoginScreen(object):
     def setupUi(self, LoginScreen):
         LoginScreen.setObjectName("LoginScreen")
         LoginScreen.setFixedSize(811, 466)
-        LoginScreen.setTabShape(QtWidgets.QTabWidget.Rounded)
+        LoginScreen.setWindowIcon(QtGui.QIcon('images/cypress_logo.png'))
         self.centralwidget = QtWidgets.QWidget(LoginScreen)
         self.centralwidget.setObjectName("centralwidget")
         self.header_label = QtWidgets.QLabel(self.centralwidget)
@@ -84,6 +84,14 @@ class Ui_LoginScreen(object):
         self.forgot_button.setFlat(True)
         self.forgot_button.setStyleSheet("color:rgb(204, 0, 0)")
         self.forgot_button.setObjectName("forgot_button")
+        self.register_button = QtWidgets.QPushButton(self.centralwidget)
+        self.register_button.setGeometry(QtCore.QRect(100, 270, 300, 40))
+        font = QtGui.QFont()
+        font.setPointSize(10)
+        self.register_button.setFont(font)
+        self.register_button.setFlat(True)
+        self.register_button.setStyleSheet("color:rgb(32, 74, 135)")
+        self.register_button.setObjectName("register_button")
         LoginScreen.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(LoginScreen)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 810, 22))
@@ -93,14 +101,12 @@ class Ui_LoginScreen(object):
         self.statusbar.setObjectName("statusbar")
         LoginScreen.setStatusBar(self.statusbar)
 
-        self.retranslateUi_english(LoginScreen)
-        #self.login_button.clicked.connect(self.do)
-        self.forgot_button.clicked.connect(self.do)
+        self.retranslateUi_french(LoginScreen)
         QtCore.QMetaObject.connectSlotsByName(LoginScreen)
 
     def retranslateUi_english(self, LoginScreen):
         _translate = QtCore.QCoreApplication.translate
-        LoginScreen.setWindowTitle(_translate("LoginScreen", "Cypress - login"))
+        LoginScreen.setWindowTitle(_translate("LoginScreen", "Cypress"))
         self.header_label.setText(_translate("LoginScreen", "CYPRESS                                                                                  City of Toronto"))
         self.faq_button.setText(_translate("LoginScreen", "FAQ"))
         self.description_label.setText(_translate("LoginScreen", "You are currently at the Cypress Login Page. By logging into this system, you will be able to report a variety of problems as you have witnessed on the streets of Toronto. "))
@@ -108,51 +114,27 @@ class Ui_LoginScreen(object):
         self.password_label.setText(_translate("LoginScreen", "Password:"))
         self.email_domain_label.setText(_translate("LoginScreen", "@cypress.on.ca"))
         self.forgot_button.setText(_translate("LoginScreen", "FORGOT PASSWORD?"))
+        self.register_button.setText(_translate("LoginScreen", "Don't have an account? REGISTER"))
         self.login_button.setText(_translate("LoginScreen", "Login"))
         self.cancel_button.setText(_translate("LoginScreen", "Cancel"))
 
     def retranslateUi_french(self, LoginScreen):
         _translate = QtCore.QCoreApplication.translate
-        LoginScreen.setWindowTitle(_translate("LoginScreen", "Cypress - login"))
-        self.header_label.setText(_translate("LoginScreen", "CYPRESS                                                                                  City of Toronto"))
+        LoginScreen.setWindowTitle(_translate("LoginScreen", "Cypress"))
+        self.header_label.setText(_translate("LoginScreen", "CYPRESS                                                                                          City of Toronto"))
         self.faq_button.setText(_translate("LoginScreen", "FAQ"))
         self.description_label.setText(_translate("LoginScreen", "Vous êtes actuellement sur la page de connexion de Cypress. En vous connectant à ce système, vous serez en mesure de signaler une variété de problèmes comme vous en avez été témoins dans les rues de Toronto. "))
         self.username_label.setText(_translate("LoginScreen", "Nom d'Utilisateur:"))
         self.password_label.setText(_translate("LoginScreen", "Mot de Passe:"))
         self.email_domain_label.setText(_translate("LoginScreen", "@cypress.on.ca"))
+        self.forgot_button.setText(_translate("LoginScreen", "MOT DE PASSE OUBLIÉ?"))
+        self.register_button.setText(_translate("LoginScreen", "Vous n'avez pas de compte? S'INSCRIRE"))
         self.login_button.setText(_translate("LoginScreen", "Connexion"))
         self.cancel_button.setText(_translate("LoginScreen", "Annuler"))
 
 
-    def do(self):
-        self.pap=MyDialog("en", "babalola Asociation")
-        self.pap.retranslateUi_english(self.pap.ui)
-        self.pap.show()
-        #self.pap2=MyNotify("en")
-        #self.pap2.show()
-
-class MyNotify(QtWidgets.QDialog):
-    def __init__(self):
-        super().__init__()
-        self.ui = Ui_Notify()
-        self.ui.setupUi(self)
-        if self.language=='french':   self.retranslateUi_french(self.ui)
-        else:   self.retranslateUi_english(self.ui)
-
-    def retranslateUi_english(self, ui):
-        ui.retranslateUi(self)
-        _translate = QtCore.QCoreApplication.translate
-        ui.label.setText(_translate("Notify", "Invalid Login"))
-
-    def retranslateUi_french(self, ui):
-        ui.retranslateUi(self)
-        _translate = QtCore.QCoreApplication.translate
-        ui.label.setText(_translate("Notify", "Identifiant Invalide"))
-
-
-
 class MyDialog(QtWidgets.QDialog):
-    def __init__(self, language, answer):
+    def __init__(self, answer, language):
         super().__init__()
         self.ui = Ui_SQ_Dialog()
         self.ui.setupUi(self)
@@ -161,8 +143,8 @@ class MyDialog(QtWidgets.QDialog):
         self.ui.security_question.setGeometry(QtCore.QRect(190, 170, 350, 101))
         self.ui.security_question.setObjectName("security_question")
         self.ui.security_question.setStyleSheet("background-color:rgb(240, 240, 240)")
-        self.ui.security_question.setText(answer)
         self.ui.security_question.setAlignment(QtCore.Qt.AlignTop)
+        self.ui.security_question.setText(answer)
         font = QtGui.QFont(); font.setFamily("Noto Mono"); font.setPointSize(13)
         self.ui.security_question.setFont(font)
         if language=='french':   self.retranslateUi_french(self.ui)
