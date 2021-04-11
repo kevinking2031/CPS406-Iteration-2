@@ -9,7 +9,6 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-#from SurveyDialog import ui_SurveyDialog
 
 class Ui_ProfileScreen(object):
     def setupUi(self, ProfileScreen):
