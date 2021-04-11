@@ -579,7 +579,7 @@ class MyProfileScreen(QMainWindow):
         #if language=='french':   self.ui.retranslateUi_french(self,self.userInfo)
         #else:   self.ui.retranslateUi_english(self,self.userInfo)
         self.ui.retranslateUi(self,self.userInfo)
-        self.ui.edit_button.clicked.connect(self.resetUpUi)
+        self.ui.edit_button.clicked.connect(self.resetUpUi_clicked)
         self.ui.delete_button.clicked.connect(self.delete_clicked)
         self.ui.cancel_button.clicked.connect(self.cancel_clicked)
 
@@ -641,7 +641,7 @@ class MyProfileScreen(QMainWindow):
             self.next=MyFrontScreen(); self.next.show()
             
 
-    def resetUpUi(self):
+    def resetUpUi_clicked(self):
         print("done")
         #print(self.ui.edit_button.text())
         if self.ui.state=='edit':
@@ -702,7 +702,7 @@ class MyProfileScreen(QMainWindow):
                 msg.exec_()
                 #Go back to the main page
                 print(userdata[1])
-                #self.cancel_clicked()
+                self.cancel_clicked()
             
     def checkReset(self,listInfo):
         foundNum=False  #If a number has been found in the password
