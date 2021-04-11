@@ -2,8 +2,8 @@ import sys
 import ctypes
 from functools import partial
 from PyQt5.QtWidgets import *
-from PyQt5.QtGui     import *
-from PyQt5.QtCore    import *
+from PyQt5.QtGui import *
+from PyQt5.QtCore import *
 import ContactScreen
 import FaqScreen
 import FrontScreen
@@ -58,7 +58,7 @@ userReports = {'johnLandon123': [
         ['Address1', 'Utility Failures'],
         ['Address2', 'Potholes'],
         ['Address3', 'Eroded Streets']]
-} #temporary list for testing please initialise proper list when user logs in where 'johnLandon123' = userAccount(username)
+}  # temporary list for testing please initialise proper list when user logs in where 'johnLandon123' = userAccount(username)
 
 global suggestions
 suggestions = {('Address1', 'Utility Failures'): [
@@ -84,6 +84,7 @@ suggestions = {('Address1', 'Utility Failures'): [
     ('Address3', 'Potholes'): []
 }
 
+
 class MyFrontScreen(QMainWindow):
     def __init__(self):
         global language
@@ -93,7 +94,7 @@ class MyFrontScreen(QMainWindow):
         language = 'english'
         self.ui.english_button.clicked.connect(self.eng_clicked)
         self.ui.french_button.clicked.connect(self.fre_clicked)
-        #self.ui.faq_button.clicked.connect(self.faq_clicked)
+        # self.ui.faq_button.clicked.connect(self.faq_clicked)
 
     def eng_clicked(self):
         self.hide()
@@ -105,10 +106,10 @@ class MyFrontScreen(QMainWindow):
         language = 'french'
         self.eng_clicked()
 
-    #def faq_clicked(self):
-        #self.hide()
-        #self.next = MyFaqScreen()
-        #self.next.show()
+    # def faq_clicked(self):
+    # self.hide()
+    # self.next = MyFaqScreen()
+    # self.next.show()
 
 
 class MyMainScreen(QMainWindow):
@@ -155,9 +156,14 @@ class MyMainScreen(QMainWindow):
         for i in range(len(page_obj)):
             if page_btn[i].isChecked():
                 # if i == 10 logout (do it before netx statements i.e. "self.hide...")
-                if i == 8:
+                if i==8:
+                    self.hide()
+                    self.next=page_obj[8]
+                    self.next.exec_()
+                    self.show();break
+                if i == 9:
                     userAccount = None
-                if i == 6 and page_obj[6] is None:
+                if i == 7 and page_obj[7] is None:
                     msg = QMessageBox()
                     if language == "english":
                         msg.setWindowTitle("Reports List Empty")
@@ -193,18 +199,17 @@ class MyLoginScreen(QMainWindow):
     def cancel_clicked(self):
         if userAccount is not None:
             self.hide()
-            self.next=MyMainScreen()
+            self.next = MyMainScreen()
             self.next.show()
         else:
             self.hide()
-            self.next=MyFrontScreen()
+            self.next = MyFrontScreen()
             self.next.show()
-    
+
     def register_clicked(self):
         self.hide()
-        self.next=MyRegisterScreen()
+        self.next = MyRegisterScreen()
         self.next.show()
-
 
     def login_clicked(self):
         ## Validate here 
@@ -360,13 +365,14 @@ class MyRegisterScreen(QMainWindow):
         self.ui.cancel_button.clicked.connect(self.cancel_clicked)
         self.ui.faq_button.clicked.connect(self.faq_clicked)
 
+    def cancel_clicked(self):
         if userAccount is not None:
             self.hide()
-            self.next=MyMainScreen()
+            self.next = MyMainScreen()
             self.next.show()
         else:
             self.hide()
-            self.next=MyFrontScreen()
+            self.next = MyFrontScreen()
             self.next.show()
 
     def register_clicked(self):
@@ -397,20 +403,20 @@ class MyRegisterScreen(QMainWindow):
         else:
             # self.SQ=RegisterScreen.MyDialog(language)
             # get info with : self.SQ.ui.security_answer.text() and self.SQ.ui.security_question.text()
-            self.SQ=RegisterScreen.MyDialog(language)
+            self.SQ = RegisterScreen.MyDialog(language)
             self.hide()
             self.SQ.exec_()
-            #Append values to the end of the list
-            sq_lis=[self.SQ.ui.security_question.text(),self.SQ.ui.security_answer.text()]
+            # Append values to the end of the list
+            sq_lis = [self.SQ.ui.security_question.text(), self.SQ.ui.security_answer.text()]
             if len(sq_lis[0]) > 0 < len(sq_lis[1]):
                 userQData.append(sq_lis)
-                userAccount=userName
+                userAccount = userName
                 print(userQData)
                 self.cancel_clicked()
             else:
                 self.show()
                 msg = QMessageBox()
-                if language=="english":
+                if language == "english":
                     msg.setWindowTitle("Registration Error")
                     msg.setText("Provide a security question and answer")
                 else:
@@ -529,55 +535,19 @@ class MyReportScreen(QMainWindow):
             self.ui.mould_button,
             self.ui.road_block_button
         ]
-        address=self.ui.address.text()
-        promblem = ""
-        msg = None
-        val = True
+        address = self.ui.address.text()
         for i in range(len(prblm_str)):
-		if prblm_btn[i].isChecked() and len(address) != 0:
-                	promblem = prblm_str[i]
-			break
-		else:
-                	val = False
-	
-	if val == False:
-		msg = QMessageBox()
-		if language == "english":
-			msg.setWindowTitle("Reports Creation Error")
-                	msg.setText("Please ensure you have specified an address and a problem to report a problem.")
-		else:
-			msg.setWindowTitle("Erreur de création de rapports.")
-			msg.setText("Veuillez vous assurer d'avoir spécifié une adresse et un problème pour signaler un problème.")
-		msg.exec_()
-        
-	if userAccount not in userReports:
-		userReports[userAccount] = [[address, promblem]]
-		msg = QMessageBox()
-		
-		if language == "english":
-			msg.setWindowTitle("Reports Creation")
-			msg.setText("Your report has been created and the city council has been notified. ETA to resolve the problem is 2 weeks.")
-		else:
-			msg.setWindowTitle("Création de rapports")
-			msg.setText("Votre rapport a été créé et le conseil municipal en a été informé. L'ETA pour résoudre le problème est de 2 semaines.")
-		msg.exec_()
-		
-	if userAccount in userReports:
-		userReports[userAccount].append([address, promblem])
-		msg = QMessageBox()
-		if language == "english":
-			msg.setWindowTitle("Reports Creation")
-			msg.setText("Your report has been created and the city council has been notified. ETA to resolve the problem is 2 weeks.")
-		else:
-			msg.setWindowTitle("Création de rapports")
-			msg.setText("Votre rapport a été créé et le conseil municipal en a été informé. L'ETA pour résoudre le problème est de 2 semaines.")
-		msg.exec_()
-	
-	if val:
-		self.cancel_clicked()
+            if prblm_btn[i].isChecked() and len(address) != 0:
+                promblem = prblm_str[i]
 
-
-
+            # Msg Box when all field are not filled for report creation.
+            # 			else:
+            # 				msg = QMessageBox()
+            #                    		if language == "english":
+            #                         		msg.setWindowTitle("Report Creation Error")
+            #                     		else:
+            # 					msg.setWindowTitle("Erreur de création de rapport")
+            #                     		msg.exec_()
 
             if userAccount not in userReports:
                 userReports[userAccount] = [[address, promblem]]
@@ -649,6 +619,7 @@ class MyProfileScreen(QMainWindow):
             self.ui.security_answer.setReadOnly(False)
             self.ui.state = 'save'
             self.ui.retranslateUi(self, self.userInfo)
+            self.ui.delete_button.setDisabled(True)
         else:
             # save by updating user information
             self.cancel_clicked()
@@ -755,6 +726,7 @@ class MyContactScreen(QMainWindow):
         self.next = MyMainScreen()
         self.next.show()
 
+
 class MySuggestPopUp(QDialog):
     def __init__(self, prblm):
         super().__init__()
@@ -762,8 +734,8 @@ class MySuggestPopUp(QDialog):
         global suggestions
         self.ui = SuggestPopUp.Ui_SuggestPopUp()
         self.ui.setupUi(self)
-        #if language=='french':   self.ui.retranslateUi_french(self)
-		#else:   self.ui.retranslateUi_english(self)
+        # if language=='french':   self.ui.retranslateUi_french(self)
+        # else:   self.ui.retranslateUi_english(self)
         self.prblm = prblm
         self.ui.problem_label.setText(prblm[1] + " in " + prblm[0])
         self.ui.back_button.clicked.connect(self.back_clicked)
@@ -777,7 +749,6 @@ class MySuggestPopUp(QDialog):
     def back_clicked(self):
         self.res = 'DEL'
         self.close()
-
 
     def submit_clicked(self):
         self.res = 'SUB'
@@ -794,8 +765,8 @@ class MySuggestScreen(QMainWindow):
 
         self.ui = SuggestScreen.Ui_SuggestScreen()
         self.ui.setupUi(self)
-        #if language=='french':   self.ui.retranslateUi_french(self)
-		#else:   self.ui.retranslateUi_english(self)
+        # if language=='french':   self.ui.retranslateUi_french(self)
+        # else:   self.ui.retranslateUi_english(self)
 
         for i in suggestions:
             frame = QFrame(self.ui.scrollAreaWidgetContents)
@@ -824,13 +795,13 @@ class MySuggestScreen(QMainWindow):
             label.setText(i[1] + " in " + i[0])
             label.setWordWrap(True)
             checkBox.setText("Prioritize this problem")
-            
+
             suggest_button.clicked.connect(partial(self.suggest_clicked, i))
             self.ui.verticalLayout_2.addWidget(frame)
-        
+
         self.ui.cancel_button.clicked.connect(self.cancel_clicked)
         self.ui.submit_button.clicked.connect(self.cancel_clicked)
-            
+
     def cancel_clicked(self):
         self.close()
         self.next = MyMainScreen();
@@ -840,9 +811,10 @@ class MySuggestScreen(QMainWindow):
         self.hide()
         self.next = MySuggestPopUp(prblm)
         self.next.exec_()
-        if self.next.res == 'DEL':
+        if self.next.res == 'DEL' or 'SUB':
             self.show()
-        
+        else:
+            self.cancel_clicked
 
 
 class MyRankScreen(QMainWindow):
@@ -853,14 +825,14 @@ class MyRankScreen(QMainWindow):
 
         self.ui = RankScreen.Ui_RankScreen()
         self.ui.setupUi(self)
-        #if language=='french':   self.ui.retranslateUi_french(self)
-		#else:   self.ui.retranslateUi_english(self)
+        # if language=='french':   self.ui.retranslateUi_french(self)
+        # else:   self.ui.retranslateUi_english(self)
         self.reportsdb = userReports
         self.rankingbd = {}
         self.rankings()
         self.display()
         self.ui.done_button.clicked.connect(self.done_clicked)
-        
+
     def done_clicked(self):
         self.hide()
         self.next = MyMainScreen();
@@ -930,8 +902,8 @@ class MyVoteScreen(QMainWindow):
 
         self.ui = VoteScreen.Ui_VoteScreen()
         self.ui.setupUi(self)
-        #if language=='french':   self.ui.retranslateUi_french(self)
-		#else:   self.ui.retranslateUi_english(self)
+        # if language=='french':   self.ui.retranslateUi_french(self)
+        # else:   self.ui.retranslateUi_english(self)
         self.votes = []
         for i in suggestions:
             if suggestions[i] == []: continue;
@@ -981,11 +953,12 @@ class MyVoteScreen(QMainWindow):
         # if submit is clicked and checkbox is checked increase vote by 1
         self.ui.submit_button.clicked.connect(self.submit_clicked)
         self.ui.cancel_button.clicked.connect(self.cancel_clicked)
-        
+
     def cancel_clicked(self):
         self.hide()
         self.next = MyMainScreen();
         self.next.show()
+
     def submit_clicked(self):
         for i, j, k in self.votes:
             if i.isChecked():
@@ -994,37 +967,37 @@ class MyVoteScreen(QMainWindow):
         # print(suggestions)
 
 
-class MyShare(QMainWindow):
+class MyShare(QDialog):
     def __init__(self):
         super().__init__()
         self.ui = Share.Ui_Share()
         self.ui.setupUi(self)
-        #if language=='french':   self.ui.retranslateUi_french(self)
-		#else:   self.ui.retranslateUi_english(self)
+        if language == 'french':   self.ui.retranslateUi_french(self)
+        else:   self.ui.retranslateUi_english(self)
+
         self.ui.pushButton.clicked.connect(self.send_clicked)
+
 
     def send_clicked(self):
         self.close()
-        
 
 
-class MySurveyScreen(QMainWindow):
+class MySurveyScreen(QDialog):
     def __init__(self):
         super().__init__()
         self.ui = SurveyScreen.Ui_SurveyScreen()
         self.ui.setupUi(self)
-        #if language=='french':   self.ui.retranslateUi_french(self)
-		#else:   self.ui.retranslateUi_english(self)
+        # if language=='french':   self.ui.retranslateUi_french(self)
+        # else:   self.ui.retranslateUi_english(self)
         self.ui.buttonBox.accepted.connect(self.accept)
         self.ui.buttonBox.rejected.connect(self.reject)
 
     def reject(self):
-        print("yes")
         self.close()
 
     def accept(self):
-        print("no")
         self.close()
+
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
