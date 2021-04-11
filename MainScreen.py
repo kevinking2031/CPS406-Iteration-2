@@ -66,36 +66,51 @@ class Ui_MainScreen(object):
         self.scrollAreaWidgetContents.setObjectName("scrollAreaWidgetContents")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents)
         self.verticalLayout.setObjectName("verticalLayout")
+
         self.report_button = QtWidgets.QRadioButton(self.scrollAreaWidgetContents)
         self.report_button.setObjectName("report_button")
         self.verticalLayout.addWidget(self.report_button)
+
         self.suggest_button = QtWidgets.QRadioButton(self.scrollAreaWidgetContents)
         self.suggest_button.setObjectName("suggest_button")
         self.verticalLayout.addWidget(self.suggest_button)
+
         self.vote_button = QtWidgets.QRadioButton(self.scrollAreaWidgetContents)
         self.vote_button.setObjectName("vote_button")
         self.verticalLayout.addWidget(self.vote_button)
-        self.profile_button = QtWidgets.QRadioButton(self.scrollAreaWidgetContents)
-        self.profile_button.setObjectName("profile_button")
-        self.verticalLayout.addWidget(self.profile_button)
-        self.myReports_button = QtWidgets.QRadioButton(self.scrollAreaWidgetContents)
-        self.myReports_button.setObjectName("myReports_button")
-        self.verticalLayout.addWidget(self.myReports_button)
+
         self.rank_button = QtWidgets.QRadioButton(self.scrollAreaWidgetContents)
         self.rank_button.setObjectName("rank_button")
         self.verticalLayout.addWidget(self.rank_button)
-        self.friend_button = QtWidgets.QRadioButton(self.scrollAreaWidgetContents)
-        self.friend_button.setObjectName("friend_button")
-        self.verticalLayout.addWidget(self.friend_button)
+
         self.faq_button = QtWidgets.QRadioButton(self.scrollAreaWidgetContents)
         self.faq_button.setObjectName("faq_button")
         self.verticalLayout.addWidget(self.faq_button)
+
         self.contact_button = QtWidgets.QRadioButton(self.scrollAreaWidgetContents)
         self.contact_button.setObjectName("contact_button")
         self.verticalLayout.addWidget(self.contact_button)
+
+        self.profile_button = QtWidgets.QRadioButton(self.scrollAreaWidgetContents)
+        self.profile_button.setObjectName("profile_button")
+        self.verticalLayout.addWidget(self.profile_button)
+
+        self.myReports_button = QtWidgets.QRadioButton(self.scrollAreaWidgetContents)
+        self.myReports_button.setObjectName("myReports_button")
+        self.verticalLayout.addWidget(self.myReports_button)
+
+        self.friend_button = QtWidgets.QRadioButton(self.scrollAreaWidgetContents)
+        self.friend_button.setObjectName("friend_button")
+        self.verticalLayout.addWidget(self.friend_button)
+
+        self.survey_button = QtWidgets.QRadioButton(self.scrollAreaWidgetContents)
+        self.survey_button.setObjectName("survey_button")
+        self.verticalLayout.addWidget(self.survey_button)
+
         self.logout_button = QtWidgets.QRadioButton(self.scrollAreaWidgetContents)
         self.logout_button.setObjectName("logout_button")
         self.verticalLayout.addWidget(self.logout_button)
+
         self.scrollArea.setWidget(self.scrollAreaWidgetContents)
         self.links_label = QtWidgets.QLabel(self.centralwidget)
         self.links_label.setGeometry(QtCore.QRect(10, 40, 241, 61))
@@ -132,6 +147,7 @@ class Ui_MainScreen(object):
         self.profile_button.setText(_translate("MainScreen", "My Profile"))
         self.myReports_button.setText(_translate("MainScreen", "My Reports"))
         self.friend_button.setText(_translate("MainScreen", "Tell a friend"))
+        self.survey_button.setText(_translate("MainScreen", "Survey"))
         self.logout_button.setText(_translate("MainScreen", "Logout"))
         self.links_label.setText(_translate("MainScreen", "QUICK LINKS >>"))
 
@@ -150,6 +166,7 @@ class Ui_MainScreen(object):
         self.profile_button.setText(_translate("MainScreen", "Mon Profil"))
         self.myReports_button.setText(_translate("MainScreen", "Mes Rapports"))
         self.friend_button.setText(_translate("MainScreen", "Dire à un ami"))
+        self.survey_button.setText(_translate("MainScreen", "Enquête"))
         self.logout_button.setText(_translate("MainScreen", "Se Déconnecter"))
         self.links_label.setText(_translate("MainScreen", "LIENS RAPIDES >>"))
 

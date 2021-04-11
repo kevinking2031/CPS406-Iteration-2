@@ -72,7 +72,7 @@ class UI_ContactScreen(object):
 
         ContactScreen.setCentralWidget(self.centralwidget)
 
-        self.retranslateUi_french(ContactScreen)
+        self.retranslateUi_english(ContactScreen)
         QtCore.QMetaObject.connectSlotsByName(ContactScreen)
 
     def retranslateUi_english(self, ContactScreen):
