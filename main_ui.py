@@ -106,12 +106,6 @@ class MyFrontScreen(QMainWindow):
         language = 'french'
         self.eng_clicked()
 
-    # def faq_clicked(self):
-    # self.hide()
-    # self.next = MyFaqScreen()
-    # self.next.show()
-
-
 class MyMainScreen(QMainWindow):
     def __init__(self):
         super().__init__()
@@ -136,6 +130,7 @@ class MyMainScreen(QMainWindow):
             self.ui.profile_button,
             self.ui.myReports_button,
             self.ui.friend_button,
+            self.ui.survey_button,
             self.ui.logout_button
         ]
         page_obj = [
@@ -148,6 +143,7 @@ class MyMainScreen(QMainWindow):
             MyProfileScreen(),
             None,
             MyShare(),
+            MySurveyScreen(),
             MyLoginScreen()
         ]
         if userAccount in userReports:
@@ -161,7 +157,7 @@ class MyMainScreen(QMainWindow):
                     self.next=page_obj[8]
                     self.next.exec_()
                     self.show();break
-                if i == 9:
+                if i == 10:
                     userAccount = None
                 if i == 7 and page_obj[7] is None:
                     msg = QMessageBox()
@@ -982,7 +978,7 @@ class MyShare(QDialog):
         self.close()
 
 
-class MySurveyScreen(QDialog):
+class MySurveyScreen(QMainWindow):
     def __init__(self):
         super().__init__()
         self.ui = SurveyScreen.Ui_SurveyScreen()
@@ -993,10 +989,19 @@ class MySurveyScreen(QDialog):
         self.ui.buttonBox.rejected.connect(self.reject)
 
     def reject(self):
-        self.close()
+        self.hide()
+        self.next = MyMainScreen()
+        self.next.show()
 
     def accept(self):
-        self.close()
+        warn = QMessageBox()
+        warn.setIcon(QMessageBox.Warning)
+        if language == 'french':
+            warn.setText("Merci pour votre avis")
+        else:
+            warn.setText("Thanks for the feedback!")
+        warn.exec_()
+        self.reject()
 
 
 if __name__ == '__main__':
