@@ -14,7 +14,8 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MyReports(object):
     def setupUi(self, MyReports):
         MyReports.setObjectName("MyReports")
-        MyReports.resize(816, 467)
+        MyReports.setFixedSize(811, 466)
+        MyReports.setWindowIcon(QtGui.QIcon('images/cypress_logo.png'))
         self.centralwidget = QtWidgets.QWidget(MyReports)
         self.centralwidget.setObjectName("centralwidget")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.centralwidget)
