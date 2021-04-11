@@ -642,7 +642,6 @@ class MyProfileScreen(QMainWindow):
             
 
     def resetUpUi_clicked(self):
-        print("done")
         #print(self.ui.edit_button.text())
         if self.ui.state=='edit':
             self.ui.state='save'
