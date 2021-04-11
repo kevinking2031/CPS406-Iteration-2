@@ -14,7 +14,7 @@ class Ui_FrontScreen(object):
         self.centralwidget = QtWidgets.QWidget(FrontScreen)
         self.centralwidget.setObjectName("centralwidget")
         self.frame = QtWidgets.QFrame(self.centralwidget)
-        self.frame.setGeometry(QtCore.QRect(290, 10, 261, 71))
+        self.frame.move(285, 15)
         self.frame.setObjectName("frame")
         self.hLayout = QtWidgets.QHBoxLayout(self.frame)
         self.hLayout.setObjectName("hLayout")
