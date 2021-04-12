@@ -187,7 +187,7 @@ class MyLoginScreen(QMainWindow):
         else:
             self.ui.retranslateUi_english(self)
         self.ui.login_button.clicked.connect(self.login_clicked)
-        self.ui.register_button.clicked.connect(self.register_clicked)
+        #self.ui.register_button.clicked.connect(self.register_clicked)
         self.ui.cancel_button.clicked.connect(self.cancel_clicked)
         self.ui.forgot_button.clicked.connect(self.forgot_clicked)
         self.ui.faq_button.clicked.connect(self.faq_clicked)
@@ -198,10 +198,10 @@ class MyLoginScreen(QMainWindow):
         self.next=MyFrontScreen()
         self.next.show()
 
-    def register_clicked(self):
-        self.hide()
-        self.next = MyRegisterScreen()
-        self.next.show()
+    #def register_clicked(self):
+        #self.hide()
+        #self.next = MyRegisterScreen()
+        #self.next.show()
 
     def login_clicked(self):
         ## Validate here 
@@ -237,6 +237,13 @@ class MyLoginScreen(QMainWindow):
     def isValidLogin(self, listInfo):
         foundUser = False
         userNum = -1
+
+        #Check if any of the fields have nothing
+        if listInfo[0]=="" or listInfo[1]=="":
+            if language == "english":
+                return ("Please fill out all fields")
+            else:      
+                return ("Veuillez remplir tous les champs")
 
         # Check if the username exists in userData
         for user in userData:
@@ -319,8 +326,8 @@ class MyLoginScreen(QMainWindow):
                         msg.setWindowTitle("Valid Security Response")
                         msg.setText("Answer is correct. Please check your email for a message with your password.")
                     else:
-                        msg.setWindowTitle("Erreur d'identification")
-                        msg.setText("Le nom d'utilisateur n'a pas de compte actuellement")
+                        msg.setWindowTitle ("Réponse de sécurité valide")
+                        msg.setText ("La réponse est correcte. Veuillez vérifier votre messagerie pour un message contenant votre mot de passe.")
                     msg.exec_()
                     self.hide()
                 else:
@@ -335,7 +342,8 @@ class MyLoginScreen(QMainWindow):
                     self.hide()
                     # Check if the question and answer match up to the userName
                     # username=self.ui.username.text()
-
+                    
+                self.hide()
                 self.next = MyFrontScreen();
                 self.next.show()
 
@@ -406,7 +414,6 @@ class MyRegisterScreen(QMainWindow):
             if len(sq_lis[0]) > 0 < len(sq_lis[1]):
                 userQData.append(sq_lis)
                 userAccount = userName
-                print(userQData)
                 self.cancel_clicked()
             else:
                 self.show()
@@ -700,7 +707,6 @@ class MyProfileScreen(QMainWindow):
                     msg.setText("Les informations ont été modifiées avec succès.")
                 msg.exec_()
                 #Go back to the main page
-                print(userdata[1])
                 self.cancel_clicked()
             
     def checkReset(self,listInfo):
