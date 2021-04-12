@@ -583,9 +583,9 @@ class MyProfileScreen(QMainWindow):
             if userData[i][5] == userAccount:	self.userInfo=userData[i]+userQData[i]; break;
         self.ui=ProfileScreen.Ui_ProfileScreen()
         self.ui.setupUi(self)
-        #if language=='french':   self.ui.retranslateUi_french(self,self.userInfo)
-        #else:   self.ui.retranslateUi_english(self,self.userInfo)
-        self.ui.retranslateUi(self,self.userInfo)
+        if language=='french':   self.ui.retranslateUi_french(self,self.userInfo)
+        else:   self.ui.retranslateUi_english(self,self.userInfo)
+        #self.ui.retranslateUi(self,self.userInfo)
         self.ui.edit_button.clicked.connect(self.resetUpUi_clicked)
         self.ui.delete_button.clicked.connect(self.delete_clicked)
         self.ui.cancel_button.clicked.connect(self.cancel_clicked)
@@ -673,9 +673,9 @@ class MyProfileScreen(QMainWindow):
             self.ui.security_answer.setReadOnly(True)
             #Disable the delete button
             self.ui.delete_button.setDisabled(True)
-            #if language=='french':   self.ui.retranslateUi_french(self,self.userInfo)
-            #else:   self.ui.retranslateUi_english(self,self.userInfo)
-            self.ui.retranslateUi(self, self.userInfo)
+            if language=='french':   self.ui.retranslateUi_french(self,self.userInfo)
+            else:   self.ui.retranslateUi_english(self,self.userInfo)
+            #self.ui.retranslateUi(self, self.userInfo)
         else:
             #Save by updating user information
             firstName=self.ui.first_name.text()
@@ -778,25 +778,6 @@ class MyProfileScreen(QMainWindow):
                     userData[i][j]=listInfo[j]
 
         return userNum
-
-
-
-    def resetUpUi(self):
-        if self.ui.state == 'edit':
-            self.ui.first_name.setReadOnly(False)
-            self.ui.last_name.setReadOnly(False)
-            self.ui.address.setReadOnly(False)
-            self.ui.phone.setReadOnly(False)
-            self.ui.username.setReadOnly(False)
-            self.ui.password.setReadOnly(False)
-            self.ui.security_question.setReadOnly(False)
-            self.ui.security_answer.setReadOnly(False)
-            self.ui.state = 'save'
-            self.ui.retranslateUi(self, self.userInfo)
-            self.ui.delete_button.setDisabled(True)
-        else:
-            # save by updating user information
-            self.cancel_clicked()
 
 
 class MyUserReports(QMainWindow):
