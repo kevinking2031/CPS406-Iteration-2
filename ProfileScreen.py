@@ -159,8 +159,7 @@ class Ui_ProfileScreen(object):
         QtCore.QMetaObject.connectSlotsByName(ProfileScreen)
         
         
-
-    def retranslateUi(self, ProfileScreen, userInfo):
+    def retranslateUi_english(self, ProfileScreen, userInfo):
         _translate = QtCore.QCoreApplication.translate
         ProfileScreen.setWindowTitle(_translate("ProfileScreen", "Cypress"))
         self.header_label.setText(_translate("ProfileScreen", "CYPRESS"))
@@ -189,6 +188,36 @@ class Ui_ProfileScreen(object):
         else: self.edit_button.setText(_translate("ProfileScreen", "SAVE PROFILE"))
         self.delete_button.setText(_translate("ProfileScreen", "DELETE PROFILE"))
         self.cancel_button.setText(_translate("ProfileScreen", "CANCEL"))
+
+    def retranslateUi_french(self, ProfileScreen, userInfo):
+        _translate = QtCore.QCoreApplication.translate
+        ProfileScreen.setWindowTitle(_translate("ProfileScreen", "Cypress"))
+        self.header_label.setText(_translate("ProfileScreen", "CYPRESS"))
+        self.header_label2.setText(_translate("ProfileScreen", "Ville de Toronto"))
+        self.username_label.setText(_translate("ProfileScreen", "Nom d'Utilisateur:"))
+        self.security_question.setText(_translate("ProfileScreen", userInfo[8]))
+        self.email_domain_label.setText(_translate("ProfileScreen", "@cypress.on.ca"))
+        self.ln_label.setText(_translate("ProfileScreen", "Nom de Famille:"))
+        self.email_label.setText(_translate("ProfileScreen", "Addresse E-mail:"))
+        self.password.setText(_translate("ProfileScreen", userInfo[6]))
+        self.answer_label.setText(_translate("ProfileScreen", "Réponse de sécurité:"))
+        self.address.setText(_translate("ProfileScreen", userInfo[2]))
+        self.first_name.setText(_translate("ProfileScreen", userInfo[0]))
+        self.last_name.setText(_translate("ProfileScreen", userInfo[1]))
+        self.username.setText(_translate("ProfileScreen", userInfo[5]))
+        self.address_label.setText(_translate("ProfileScreen", "Addresse:"))
+        self.quesstion_label.setText(_translate("ProfileScreen", "Question de sécurité:"))
+        self.password_label.setText(_translate("ProfileScreen", "Mot de Passe:"))
+        self.security_answer.setText(_translate("ProfileScreen", len(userInfo[9])*'●'))
+        self.phone_label.setText(_translate("ProfileScreen", "Numéro de Téléphone:"))
+        self.email_address.setText(_translate("ProfileScreen", userInfo[4]))
+        self.fn_label.setText(_translate("ProfileScreen", "Prénom:"))
+        self.phone.setText(_translate("ProfileScreen", userInfo[3]))
+        global state
+        if self.state == 'edit': self.edit_button.setText(_translate("ProfileScreen", "EDITER LE PROFIL"))
+        else: self.edit_button.setText(_translate("ProfileScreen", "ENREGISTRER LE PROFIL"))
+        self.delete_button.setText(_translate("ProfileScreen", "SUPPRIMER LE PROFIL"))
+        self.cancel_button.setText(_translate("ProfileScreen", "ANNULER"))
 
 
 if __name__ == "__main__":
