@@ -9,6 +9,7 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+from SQ_Dialog import Ui_SQ_Dialog
 
 
 class Ui_LoginScreen(object):
