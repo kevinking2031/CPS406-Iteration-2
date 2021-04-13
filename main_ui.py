@@ -106,6 +106,7 @@ class MyFrontScreen(QMainWindow):
         language = 'french'
         self.eng_clicked()
 
+
 class MyMainScreen(QMainWindow):
     def __init__(self):
         super().__init__()
@@ -152,11 +153,12 @@ class MyMainScreen(QMainWindow):
         for i in range(len(page_obj)):
             if page_btn[i].isChecked():
                 # if i == 10 logout (do it before netx statements i.e. "self.hide...")
-                if i==8:
+                if i == 8:
                     self.hide()
-                    self.next=page_obj[8]
+                    self.next = page_obj[8]
                     self.next.exec_()
-                    self.show();break
+                    self.show();
+                    break
                 if i == 10:
                     userAccount = None
                 if i == 7 and page_obj[7] is None:
@@ -179,7 +181,7 @@ class MyLoginScreen(QMainWindow):
     def __init__(self):
         super().__init__()
         global language
-        userAccount=None
+        userAccount = None
         self.ui = LoginScreen.Ui_LoginScreen()
         self.ui.setupUi(self)
         if language == 'french':
@@ -187,7 +189,7 @@ class MyLoginScreen(QMainWindow):
         else:
             self.ui.retranslateUi_english(self)
         self.ui.login_button.clicked.connect(self.login_clicked)
-        #self.ui.register_button.clicked.connect(self.register_clicked)
+        # self.ui.register_button.clicked.connect(self.register_clicked)
         self.ui.cancel_button.clicked.connect(self.cancel_clicked)
         self.ui.forgot_button.clicked.connect(self.forgot_clicked)
         self.ui.faq_button.clicked.connect(self.faq_clicked)
@@ -195,13 +197,13 @@ class MyLoginScreen(QMainWindow):
 
     def cancel_clicked(self):
         self.hide()
-        self.next=MyFrontScreen()
+        self.next = MyFrontScreen()
         self.next.show()
 
-    #def register_clicked(self):
-        #self.hide()
-        #self.next = MyRegisterScreen()
-        #self.next.show()
+    # def register_clicked(self):
+    # self.hide()
+    # self.next = MyRegisterScreen()
+    # self.next.show()
 
     def login_clicked(self):
         ## Validate here 
@@ -226,7 +228,7 @@ class MyLoginScreen(QMainWindow):
         else:
             userAccount = userName
             self.hide()
-            self.next=MyMainScreen()
+            self.next = MyMainScreen()
             self.next.show()
 
     def register_clicked(self):
@@ -238,11 +240,11 @@ class MyLoginScreen(QMainWindow):
         foundUser = False
         userNum = -1
 
-        #Check if any of the fields have nothing
-        if listInfo[0]=="" or listInfo[1]=="":
+        # Check if any of the fields have nothing
+        if listInfo[0] == "" or listInfo[1] == "":
             if language == "english":
                 return ("Please fill out all fields")
-            else:      
+            else:
                 return ("Veuillez remplir tous les champs")
 
         # Check if the username exists in userData
@@ -326,8 +328,9 @@ class MyLoginScreen(QMainWindow):
                         msg.setWindowTitle("Valid Security Response")
                         msg.setText("Answer is correct. Please check your email for a message with your password.")
                     else:
-                        msg.setWindowTitle ("Réponse de sécurité valide")
-                        msg.setText ("La réponse est correcte. Veuillez vérifier votre messagerie pour un message contenant votre mot de passe.")
+                        msg.setWindowTitle("Réponse de sécurité valide")
+                        msg.setText(
+                            "La réponse est correcte. Veuillez vérifier votre messagerie pour un message contenant votre mot de passe.")
                     msg.exec_()
                     self.hide()
                 else:
@@ -342,7 +345,7 @@ class MyLoginScreen(QMainWindow):
                     self.hide()
                     # Check if the question and answer match up to the userName
                     # username=self.ui.username.text()
-                    
+
                 self.hide()
                 self.next = MyFrontScreen();
                 self.next.show()
@@ -357,7 +360,7 @@ class MyRegisterScreen(QMainWindow):
     def __init__(self):
         super().__init__()
         global language
-        userAccount=None
+        userAccount = None
         self.ui = RegisterScreen.Ui_RegisterScreen()
         self.ui.setupUi(self)
         if language == 'french':
@@ -416,6 +419,7 @@ class MyRegisterScreen(QMainWindow):
                 userAccount = userName
                 self.cancel_clicked()
             else:
+                userData.pop()
                 self.show()
                 msg = QMessageBox()
                 if language == "english":
@@ -538,38 +542,39 @@ class MyReportScreen(QMainWindow):
             self.ui.road_block_button
         ]
         address = self.ui.address.text()
+        clicked = False
         for i in range(len(prblm_str)):
             if prblm_btn[i].isChecked() and len(address) != 0:
-                promblem = prblm_str[i]
+                problem = prblm_str[i];
+                clicked = True;
+                break
 
-            # Msg Box when all field are not filled for report creation.
-            # 			else:
-            # 				msg = QMessageBox()
-            #                    		if language == "english":
-            #                         		msg.setWindowTitle("Report Creation Error")
-            #                     		else:
-            # 					msg.setWindowTitle("Erreur de création de rapport")
-            #                     		msg.exec_()
-
-            if userAccount not in userReports:
-                userReports[userAccount] = [[address, promblem]]
-        # 			msg = QMessageBox()
-        #                    	if language == "english":
-        #                         	msg.setWindowTitle("Report Creation")
-        #                     	else:
-        # 				msg.setWindowTitle("Création de rapports")
-        #                     	msg.exec_()
+        if not clicked or len(address)==0:
+            msg = QMessageBox()
+            if language == "english":
+                msg.setWindowTitle("Report Creation Error")
+                msg.setText("Specify Address and problem")
+            else:
+                msg.setWindowTitle("Erreur de création de rapport")
+                msg.setText("Spécifiez l'adresse et le problème ")
+            msg.exec_()
 
         else:
-            userReports[userAccount].append([address, promblem])
-        # 			msg = QMessageBox()
-        #                    	if language == "english":
-        #                         	msg.setWindowTitle("Report Creation")
-        #                     	else:
-        # 				msg.setWindowTitle("Création de rapports")
-        #                     	msg.exec_()
-
-        self.cancel_clicked()
+            global suggestions
+            suggestions[(address, problem)]=[]
+            if userAccount not in userReports:
+                userReports[userAccount] = [[address, problem]]
+            else:
+                userReports[userAccount].append([address, problem])
+            msg = QMessageBox()
+            if language == "english":
+                msg.setWindowTitle("Report Creation")
+                msg.setText("Thank you for the report we will get to it as soon as we can")
+            else:
+                msg.setWindowTitle("Création de rapports")
+                msg.setText("Merci pour le rapport, nous y arriverons dès que possible")
+            msg.exec_()
+            self.cancel_clicked()
 
 
 class MyProfileScreen(QMainWindow):
@@ -578,84 +583,94 @@ class MyProfileScreen(QMainWindow):
         global language
         global userData
         global userAccount
-        self.userInfo=[]
+        self.userInfo = []
         for i in range(len(userData)):
-            if userData[i][5] == userAccount:	self.userInfo=userData[i]+userQData[i]; break;
-        self.ui=ProfileScreen.Ui_ProfileScreen()
+            if userData[i][5] == userAccount:    self.userInfo = userData[i] + userQData[i]; break;
+        self.ui = ProfileScreen.Ui_ProfileScreen()
         self.ui.setupUi(self)
-        if language=='french':   self.ui.retranslateUi_french(self,self.userInfo)
-        else:   self.ui.retranslateUi_english(self,self.userInfo)
-        #self.ui.retranslateUi(self,self.userInfo)
+        if language == 'french':
+            self.ui.retranslateUi_french(self, self.userInfo)
+        else:
+            self.ui.retranslateUi_english(self, self.userInfo)
+        # self.ui.retranslateUi(self,self.userInfo)
         self.ui.edit_button.clicked.connect(self.resetUpUi_clicked)
         self.ui.delete_button.clicked.connect(self.delete_clicked)
         self.ui.cancel_button.clicked.connect(self.cancel_clicked)
 
     def cancel_clicked(self):
         self.hide()
-        self.next=MyMainScreen(); self.next.show()
+        self.next = MyMainScreen();
+        self.next.show()
 
     def delete_clicked(self):
-        #Make user answer security question from logout page
-        #Get the userNum from userData
-        userNum=-1
+        # Make user answer security question from logout page
+        # Get the userNum from userData
+        userNum = -1
         for user in userData:
-            userNum+=1
-            if user[5]==userAccount:
+            userNum += 1
+            if user[5] == userAccount:
                 break
-        #Get the user question
-        question=userQData[userNum][0]
-        #Display the user question
-        self.SQ=LoginScreen.MyDialog(question, language)
+        # Get the user question
+        question = userQData[userNum][0]
+        # Display the user question
+        self.SQ = LoginScreen.MyDialog(question, language)
+        if language == 'french':
+            self.SQ.ui.description_label.setText("Entrez votre réponse de sécurité")
+        else:
+            self.SQ.ui.description_label.setText("Enter your security answer")
         self.SQ.exec_()
-        answer=self.SQ.ui.security_answer.text()
-        #get info with : self.SQ.ui.security_answer.text() and self.SQ.ui.security_question.text()
-        #Check to see if answer is correct
-        if userQData[userNum][1]==answer:
-            #Then you can ask the user if they want to delete the report
-            warn=QMessageBox()
+        answer = self.SQ.ui.security_answer.text()
+        # get info with : self.SQ.ui.security_answer.text() and self.SQ.ui.security_question.text()
+        # Check to see if answer is correct
+        if userQData[userNum][1] == answer:
+            # Then you can ask the user if they want to delete the report
+            warn = QMessageBox()
             warn.setIcon(QMessageBox.Warning)
-            if language=='french': warn.setText("Voulez-vous vraiment supprimer votre profil?")
-            else: warn.setText("Are you sure you want to delete your profile?")
-            warn.setStandardButtons(QMessageBox.Yes|QMessageBox.No)
+            if language == 'french':
+                warn.setText("Voulez-vous vraiment supprimer votre profil?")
+            else:
+                warn.setText("Are you sure you want to delete your profile?")
+            warn.setStandardButtons(QMessageBox.Yes | QMessageBox.No)
             warn.buttonClicked.connect(self.popup_button)
             warn.exec_()
-            #userAccount=None
+            # userAccount=None
         else:
             msg = QMessageBox()
-            if language=="english":
+            if language == "english":
                 msg.setWindowTitle("Incorrect Security Response")
                 msg.setText("Security answer is incorrect. You may not delete your account at this time.")
             else:
                 msg.setWindowTitle("Erreur d'identification")
-                msg.setText("La réponse de sécurité est incorrecte. Vous ne pouvez pas supprimer votre compte pour le moment.")
+                msg.setText(
+                    "La réponse de sécurité est incorrecte. Vous ne pouvez pas supprimer votre compte pour le moment.")
             msg.exec_()
-            
+
     def popup_button(self, btn):
-        #Delete profile here if the user clicks yes
-        if btn.text()=="&Yes":
-            #Get the userNum from userData
-            userNum=-1
+        # Delete profile here if the user clicks yes
+        if btn.text() == "&Yes":
+            # Get the userNum from userData
+            userNum = -1
             for user in userData:
-                userNum+=1
-                if user[5]==userAccount:
+                userNum += 1
+                if user[5] == userAccount:
                     break
-            #Delete userData with userNum
+            # Delete userData with userNum
             del userData[userNum]
-            #Delete userQData with userNum
+            # Delete userQData with userNum
             del userQData[userNum]
-            #Return to the main page where userAccount will be equal to 0
+            # Return to the main page where userAccount will be equal to 0
             self.hide()
-            self.next=MyFrontScreen(); self.next.show()
-            
+            self.next = MyFrontScreen();
+            self.next.show()
 
     def resetUpUi_clicked(self):
-        #print(self.ui.edit_button.text())
-        if self.ui.state=='edit':
-            self.ui.state='save'
-            #self.ui.edit_button.setText("SAVE PROFILE")
-            #Prompt the user
+        # print(self.ui.edit_button.text())
+        if self.ui.state == 'edit':
+            self.ui.state = 'save'
+            # self.ui.edit_button.setText("SAVE PROFILE")
+            # Prompt the user
             msg = QMessageBox()
-            if language=="english":
+            if language == "english":
                 msg.setText("All information may be changed except for the following:\n - Username \
                         \n - Security question \n - Security answer")
             else:
@@ -671,111 +686,113 @@ class MyProfileScreen(QMainWindow):
             self.ui.password.setReadOnly(False)
             self.ui.security_question.setReadOnly(True)
             self.ui.security_answer.setReadOnly(True)
-            #Disable the delete button
+            # Disable the delete button
             self.ui.delete_button.setDisabled(True)
-            if language=='french':   self.ui.retranslateUi_french(self,self.userInfo)
-            else:   self.ui.retranslateUi_english(self,self.userInfo)
-            #self.ui.retranslateUi(self, self.userInfo)
+            if language == 'french':
+                self.ui.retranslateUi_french(self, self.userInfo)
+            else:
+                self.ui.retranslateUi_english(self, self.userInfo)
+            # self.ui.retranslateUi(self, self.userInfo)
         else:
-            #Save by updating user information
-            firstName=self.ui.first_name.text()
-            lastName=self.ui.last_name.text()
-            address=self.ui.address.text()
-            phone=self.ui.phone.text()
-            email=self.ui.email_address.text()
-            userName=self.ui.username.text()
-            password=self.ui.password.text()
-            #securQuestion=self.ui.security_question.toPlainText()
-            #securAnswer=self.ui.security_answer.toPlainText()
-            
-            listInfo=[firstName,lastName,address,phone,email,userName,password,0]
-            
-            check=self.checkReset(listInfo)
-            if isinstance(check, str)==True:
+            # Save by updating user information
+            firstName = self.ui.first_name.text()
+            lastName = self.ui.last_name.text()
+            address = self.ui.address.text()
+            phone = self.ui.phone.text()
+            email = self.ui.email_address.text()
+            userName = self.ui.username.text()
+            password = self.ui.password.text()
+            # securQuestion=self.ui.security_question.toPlainText()
+            # securAnswer=self.ui.security_answer.toPlainText()
+
+            listInfo = [firstName, lastName, address, phone, email, userName, password, 0]
+
+            check = self.checkReset(listInfo)
+            if isinstance(check, str) == True:
                 msg = QMessageBox()
                 msg.setText(self.checkReset(listInfo))
                 msg.exec_()
             else:
-                self.ui.state='edit'
-                #Tell user changes have been made
+                self.ui.state = 'edit'
+                # Tell user changes have been made
                 msg = QMessageBox()
-                if language=="english":
+                if language == "english":
                     msg.setWindowTitle(" ")
                     msg.setText("Information changed successfully.")
                 else:
                     msg.setWindowTitle(" ")
                     msg.setText("Les informations ont été modifiées avec succès.")
                 msg.exec_()
-                #Go back to the main page
+                # Go back to the main page
                 self.cancel_clicked()
-            
-    def checkReset(self,listInfo):
-        foundNum=False  #If a number has been found in the password
-        foundUpper=False #If an uppercase letter has been found in password
-        foundLower=False #If a lowercase letter has been found in password
 
-        #Make sure no fields are empty, if any are empty return false
-        for i in range(0,len(listInfo)-1):
-            element=listInfo[i]
-            if len(element)==0:
-                if language=="english":
-                    return("Not all fields are filled out correctly")
+    def checkReset(self, listInfo):
+        foundNum = False  # If a number has been found in the password
+        foundUpper = False  # If an uppercase letter has been found in password
+        foundLower = False  # If a lowercase letter has been found in password
+
+        # Make sure no fields are empty, if any are empty return false
+        for i in range(0, len(listInfo) - 1):
+            element = listInfo[i]
+            if len(element) == 0:
+                if language == "english":
+                    return ("Not all fields are filled out correctly")
                 else:
-                    return("Tous les champs ne sont pas remplis correctement")
-            
-        #If the length of password is less than 8 chars return false
-        if len(listInfo[6])<8:
-            if language=="english":
-                return("Length of password is too short")
-            else:
-                return("La longueur du mot de passe est trop courte")
-            
-        #Go through each character in password to check requirements
-        for letter in listInfo[6]:
-            #Check for a number
-            if letter.isnumeric():
-                foundNum=True
-            #Check for an uppercase letter
-            if letter.isupper():
-                foundUpper=True
-            #Check for an lowercase letter
-            if letter.islower():
-                foundLower=True
+                    return ("Tous les champs ne sont pas remplis correctement")
 
-        #Check if the password is valid (field 6)
-        if (foundNum==False or foundUpper==False or foundLower==False):
-            if language=="english":
-                return("Password is missing at least one of the following:\n - 1 number \n - 1 uppercase letter\
+        # If the length of password is less than 8 chars return false
+        if len(listInfo[6]) < 8:
+            if language == "english":
+                return ("Length of password is too short")
+            else:
+                return ("La longueur du mot de passe est trop courte")
+
+        # Go through each character in password to check requirements
+        for letter in listInfo[6]:
+            # Check for a number
+            if letter.isnumeric():
+                foundNum = True
+            # Check for an uppercase letter
+            if letter.isupper():
+                foundUpper = True
+            # Check for an lowercase letter
+            if letter.islower():
+                foundLower = True
+
+        # Check if the password is valid (field 6)
+        if (foundNum == False or foundUpper == False or foundLower == False):
+            if language == "english":
+                return ("Password is missing at least one of the following:\n - 1 number \n - 1 uppercase letter\
                         \n - 1 lowercase letter")
             else:
-                return("Le mot de passe manque au moins l'un des éléments suivants:\n - 1 chiffre \n - 1 lettre majuscule\
+                return ("Le mot de passe manque au moins l'un des éléments suivants:\n - 1 chiffre \n - 1 lettre majuscule\
                         \n - 1  lettre minuscule")
-            
-        #If userData is empty add this as the first element
-        if len(userData)==0:
+
+        # If userData is empty add this as the first element
+        if len(userData) == 0:
             userData.append(listInfo)
             return True
 
-        #If it is not the first element in userData check if the username is free (field 5)
+        # If it is not the first element in userData check if the username is free (field 5)
         for user in userData:
-            if user[5]==listInfo[5] and listInfo[5]!=userAccount:
-                if language=="english":
-                    return("Username is already taken")
+            if user[5] == listInfo[5] and listInfo[5] != userAccount:
+                if language == "english":
+                    return ("Username is already taken")
                 else:
-                    return("Le nom d'utilisateur est déjà pris")
+                    return ("Le nom d'utilisateur est déjà pris")
 
-        #Get the userNum from userData
-        userNum=-1
+        # Get the userNum from userData
+        userNum = -1
         for user in userData:
-            userNum+=1
-            if user[5]==userAccount:
+            userNum += 1
+            if user[5] == userAccount:
                 break
-            
-        #Since the username is free and the password is valid modify the current userData profile
+
+        # Since the username is free and the password is valid modify the current userData profile
         for i in range(len(userData)):
-            if i==userNum:
+            if i == userNum:
                 for j in range(7):
-                    userData[i][j]=listInfo[j]
+                    userData[i][j] = listInfo[j]
 
         return userNum
 
@@ -814,31 +831,43 @@ class MyUserReports(QMainWindow):
 
     def edit_clicked(self):
         if self.clicked_prblm >= 0:
-            self.hide()
-            self.next = MyReportScreen();
-            self.next.ui.address.setText(self.prblm_lis[self.clicked_prblm][0])
-            self.next.show()
-
-        # check to see if report is in userReports for current user
-        if self.prblm_lis[self.clicked_prblm] in userReports[userAccount]:
-            userReports[userAccount].remove(self.prblm_lis[self.clicked_prblm])
+            warn = QMessageBox()
+            warn.setIcon(QMessageBox.Warning)
+            if language == 'french':
+                warn.setText("La modification d'un rapport supprimera toutes les suggestions et tous les votes, voulez-vous continuer?")
+            else:
+                warn.setText("Editing a report will get rid of all suggestions and votes, do you want to continue?")
+            warn.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+            reply = warn.exec_()
+            if reply == QMessageBox.Ok:
+                self.hide()
+                self.next = MyReportScreen();
+                self.next.ui.address.setText(self.prblm_lis[self.clicked_prblm][0])
+                self.next.show()
+                # check to see if report is in userReports for current user
+                if self.prblm_lis[self.clicked_prblm] in userReports[userAccount]:
+                    global suggestions
+                    del suggestions[(self.prblm_lis[self.clicked_prblm][0], self.prblm_lis[self.clicked_prblm][1])]
+                    userReports[userAccount].remove(self.prblm_lis[self.clicked_prblm])
 
     def delete_clicked(self):
         if self.clicked_prblm >= 0:
             warn = QMessageBox()
             warn.setIcon(QMessageBox.Warning)
             if language == 'french':
-                warn.setText("Voulez-vous vraiment supprimer votre rapport")
+                warn.setText("Voulez-vous vraiment supprimer votre rapport?")
             else:
                 warn.setText("Are you sure you want to delete your report?")
             warn.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
             reply = warn.exec_()
             if reply == QMessageBox.Ok:
+                global suggestions
                 if self.prblm_lis[self.clicked_prblm] in userReports[userAccount]:
+                    del suggestions[(self.prblm_lis[self.clicked_prblm][0], self.prblm_lis[self.clicked_prblm][1])]
                     userReports[userAccount].remove(self.prblm_lis[self.clicked_prblm])
-        self.hide()
-        self.next = MyUserReports()
-        self.next.show()
+                self.hide()
+                self.next = MyUserReports()
+                self.next.show()
 
     def cancel_clicked(self):
         self.hide()
@@ -1127,11 +1156,12 @@ class MyShare(QDialog):
         super().__init__()
         self.ui = Share.Ui_Share()
         self.ui.setupUi(self)
-        if language == 'french':   self.ui.retranslateUi_french(self)
-        else:   self.ui.retranslateUi_english(self)
+        if language == 'french':
+            self.ui.retranslateUi_french(self)
+        else:
+            self.ui.retranslateUi_english(self)
 
         self.ui.pushButton.clicked.connect(self.send_clicked)
-
 
     def send_clicked(self):
         self.close()
