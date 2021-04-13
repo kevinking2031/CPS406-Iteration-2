@@ -216,12 +216,12 @@ class MyDialog(QtWidgets.QDialog):
     def retranslateUi_english(self, ui):
         ui.retranslateUi_english(self)
         _translate = QtCore.QCoreApplication.translate
-        ui.description_label.setText(_translate("SQ_Dialog", "Enter your security question and answer below. After verification, your password will be sent to your account."))
+        ui.description_label.setText(_translate("SQ_Dialog", "Enter security answer to verify your account."))
 
     def retranslateUi_french(self, ui):
         ui.retranslateUi_french(self)
         _translate = QtCore.QCoreApplication.translate
-        ui.description_label.setText(_translate("SQ_Dialog", "Entrez votre question de sécurité et votre réponse ci-dessous. Après vérification, votre mot de passe sera envoyé à votre compte."))
+        ui.description_label.setText(_translate("SQ_Dialog", "Entrez la réponse de sécurité pour vérifier votre compte."))
 
 
 if __name__ == "__main__":
